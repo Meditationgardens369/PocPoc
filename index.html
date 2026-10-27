@@ -96,7 +96,16 @@
 
   .stage { position: relative; aspect-ratio: 1 / 1.02; max-width: 600px; justify-self: end; width: 100%; }
   @media (max-width: 920px) { .stage { justify-self: center; max-width: 520px; } }
-  .frame { position: absolute; inset: 0 0 8% 10%; border-radius: 34px; overflow: hidden; box-shadow: var(--sh-l); background: var(--rose); }
+  .frame { position: absolute; inset: 0 0 8% 10%; z-index: 1; border-radius: 34px; overflow: hidden; box-shadow: var(--sh-l); background: var(--rose); transform: translate3d(var(--fx, 0), var(--fy, 0), 0); transition: transform .5s var(--ease); }
+  /* depth: a second photo behind the main one and soft colour light, both drift with the pointer */
+  .stage { isolation: isolate; }
+  .back { position: absolute; left: -9%; top: 18%; width: 42%; aspect-ratio: 3 / 4; z-index: 0; border-radius: 26px; overflow: hidden; border: 6px solid #fff; box-shadow: var(--sh-l); transform: translate3d(var(--bx, 0), var(--by, 0), 0) rotate(-7deg); transition: transform .6s var(--ease); }
+  .back img { width: 100%; height: 100%; object-fit: cover; }
+  .orb { position: absolute; border-radius: 50%; filter: blur(46px); opacity: .55; z-index: -1; pointer-events: none; transform: translate3d(var(--ox, 0), var(--oy, 0), 0); transition: transform .8s var(--ease); }
+  .orb.o1 { width: 300px; height: 300px; right: -40px; top: -30px; background: #F7B6D2; }
+  .orb.o2 { width: 240px; height: 240px; left: 0; bottom: -20px; background: #D7C2FF; }
+  .float.f1 { transform: translate3d(var(--px, 0), var(--py, 0), 0); }
+  @media (max-width: 520px) { .back { width: 40%; left: -4%; } }
   .frame img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transform: scale(1.12); transition: opacity 1.4s ease; }
   .frame img.on { opacity: 1; animation: kb 7s linear forwards; }
   @keyframes kb { from { transform: scale(1.12) translate(1.5%, 1%); } to { transform: scale(1.0) translate(0, 0); } }
@@ -105,7 +114,7 @@
   .dots i { width: 7px; height: 7px; border-radius: 50%; background: rgba(255,255,255,.55); transition: all .3s; }
   .dots i.on { width: 20px; border-radius: 4px; background: #fff; }
   .float { position: absolute; background: rgba(255,255,255,.92); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-radius: 20px; box-shadow: var(--sh-l); padding: 14px 16px; z-index: 3; }
-  .float.f1 { left: 0; bottom: 0; display: flex; align-items: center; gap: 12px; max-width: 290px; animation: bob 6s ease-in-out infinite; }
+  .float.f1 { left: 4%; bottom: 2%; display: flex; align-items: center; gap: 12px; max-width: 290px; padding: 10px 18px 10px 10px; border-radius: 999px; transition: transform .5s var(--ease); }
   .float.f1 img { width: 54px; height: 54px; border-radius: 50%; object-fit: cover; flex: none; border: 3px solid #fff; box-shadow: var(--sh-s); }
   .float.f1 b { display: block; font: 600 16px var(--head); }
   .float.f1 span { display: block; font-size: 13px; color: var(--muted); line-height: 1.35; }
@@ -138,8 +147,8 @@
   .pillar { display: block; border: 0; background: none; padding: 0; text-align: left; cursor: pointer; color: inherit; font: inherit; }
   .pillar .pi { display: block; position: relative; border-radius: 30px; overflow: hidden; aspect-ratio: 4 / 5; box-shadow: var(--sh-s); transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)); transition: transform .4s var(--ease), box-shadow .4s; }
   .pillar:hover .pi { box-shadow: var(--sh-l); }
-  .pillar .pi img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--ease); }
-  .pillar:hover .pi img { transform: scale(1.05); }
+  .pillar .pi img { position: absolute; left: 0; top: -7.5%; width: 100%; height: 115%; object-fit: cover; transform: translate3d(0, var(--iy, 0), 0) scale(var(--is, 1)); transition: transform .3s linear; }
+  .pillar:hover .pi img { --is: 1.05; }
   .pillar .pl { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 16px; }
   .pillar .pl b { font: 600 clamp(21px, 2vw, 25px)/1.15 var(--head); }
   .pillar .pl i { flex: none; width: 34px; height: 34px; border-radius: 50%; background: var(--pink-soft); color: var(--pink); display: grid; place-items: center; font: 600 22px/1 var(--head); font-style: normal; transition: transform .35s var(--ease), background .3s, color .3s; }
@@ -281,7 +290,9 @@
   .gal-nav button:hover { transform: scale(1.06); }
   .rail { display: flex; gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 6px 24px 20px; margin: 0 -24px; scroll-padding-left: 24px; scrollbar-width: none; cursor: grab; }
   .rail::-webkit-scrollbar { display: none; }
-  .rail figure { margin: 0; flex: none; width: min(320px, 74vw); scroll-snap-align: start; position: relative; border-radius: 26px; overflow: hidden; aspect-ratio: 4 / 5; box-shadow: var(--sh-s); cursor: zoom-in; }
+  .rail { perspective: 1400px; }
+  .rail figure { margin: 0; flex: none; width: min(320px, 74vw); scroll-snap-align: start; position: relative; border-radius: 26px; overflow: hidden; aspect-ratio: 4 / 5; box-shadow: var(--sh-s); cursor: zoom-in; transform: rotateY(var(--ry, 0deg)) scale(var(--sc, 1)); transition: transform .25s linear, box-shadow .3s; }
+  .rail figure.mid { box-shadow: var(--sh-l); }
   .rail figure.w { width: min(440px, 86vw); }
   .rail img { width: 100%; height: 100%; object-fit: cover; transition: transform 1s var(--ease); pointer-events: none; }
   .rail figure:hover img { transform: scale(1.05); }
@@ -302,6 +313,15 @@
   .close-card figure img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 
   footer { padding: 30px 0 46px; border-top: 1px solid var(--line); }
+  /* phones: the one action stays one tap away */
+  .dock { display: none; }
+  @media (max-width: 760px) {
+    .dock { display: flex; position: fixed; left: 14px; right: 14px; bottom: calc(14px + env(safe-area-inset-bottom)); z-index: 40; justify-content: center; transform: translateY(140%); transition: transform .45s var(--ease); pointer-events: none; }
+    .dock.on { transform: none; pointer-events: auto; }
+    .top .btn { display: none; }
+    .dock .btn { width: 100%; box-shadow: 0 16px 34px rgba(233,75,154,.42), 0 4px 10px rgba(63,37,25,.12); }
+    footer { padding-bottom: 100px; }
+  }
   footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 18px; color: var(--muted); font-size: 14px; }
   .social { display: flex; gap: 10px; }
   .social a { width: 42px; height: 42px; border-radius: 50%; background: var(--paper); box-shadow: var(--sh-s); display: grid; place-items: center; color: var(--pink); transition: transform .2s; }
@@ -362,7 +382,9 @@
           </div>
         </div>
       </div>
-      <div class="stage">
+      <div class="stage" id="stage">
+        <span class="orb o1"></span><span class="orb o2"></span>
+        <div class="back"><img src="photos/t-batizado.jpg" alt=""></div>
         <div class="frame" id="frame">
           <img class="on" src="photos/hero.jpg" alt="A Marina e o Fábio numa festa Bluey" style="object-position:40% 50%">
           <img src="photos/t-minnie.jpg" alt="Mesa de festa com waffles, mini pizzas e salgados">
@@ -552,6 +574,7 @@
     </div>
   </div>
 </footer>
+<div class="dock" id="dock"><a class="btn primary big" href="monta.html"><span class="pt">Monta a tua festa</span><span class="en">Build your party</span><span class="arr">→</span></a></div>
 <div class="lb" id="lb"><figure><img src="" alt=""><figcaption></figcaption></figure></div>
 
 <script>
@@ -809,6 +832,46 @@
   document.querySelectorAll('[data-lb]').forEach(function (a) { a.addEventListener('click', function (e) { e.preventDefault(); openLb(a.getAttribute('href')); }); });
   lb.addEventListener('click', function () { lb.classList.remove('on'); });
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape') { lb.classList.remove('on'); } });
+
+  /* ---------- Depth ---------- */
+  var still = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var stage = document.getElementById('stage');
+  if (!still && window.matchMedia && matchMedia('(hover: hover)').matches) {
+    document.querySelector('.hero').addEventListener('pointermove', function (e) {
+      var r = stage.getBoundingClientRect(), x = (e.clientX - (r.left + r.width / 2)) / r.width, y = (e.clientY - (r.top + r.height / 2)) / r.height;
+      stage.style.setProperty('--fx', (x * -10) + 'px'); stage.style.setProperty('--fy', (y * -10) + 'px');
+      stage.style.setProperty('--bx', (x * 18) + 'px'); stage.style.setProperty('--by', (y * 14) + 'px');
+      stage.style.setProperty('--px', (x * 24) + 'px'); stage.style.setProperty('--py', (y * 18) + 'px');
+      stage.style.setProperty('--ox', (x * 40) + 'px'); stage.style.setProperty('--oy', (y * 30) + 'px');
+    });
+  }
+  /* photos drift inside their cards as you scroll, and the gallery bends like a carousel */
+  var pis = [].slice.call(document.querySelectorAll('.pillar .pi'));
+  var figs = [].slice.call(rail.querySelectorAll('figure'));
+  var depthTick = false;
+  function depth() {
+    depthTick = false; if (still) { return; }
+    var h = window.innerHeight;
+    pis.forEach(function (el) { var r = el.getBoundingClientRect(); if (r.bottom < 0 || r.top > h) { return; } var k = ((r.top + r.height / 2) / h - .5); el.style.setProperty('--iy', (k * -9) + '%'); });
+    var rr = rail.getBoundingClientRect(), mid = rr.left + rr.width / 2, best = null, bd = 1e9;
+    figs.forEach(function (f) {
+      var r = f.getBoundingClientRect(), d = (r.left + r.width / 2 - mid) / rr.width;
+      var a = Math.max(-1, Math.min(1, d));
+      f.style.setProperty('--ry', (a * -14) + 'deg'); f.style.setProperty('--sc', (1 - Math.min(.1, Math.abs(a) * .12)).toFixed(3));
+      if (Math.abs(d) < bd) { bd = Math.abs(d); best = f; }
+    });
+    figs.forEach(function (f) { f.classList.toggle('mid', f === best); });
+  }
+  function askDepth() { if (!depthTick) { depthTick = true; requestAnimationFrame(depth); } }
+  window.addEventListener('scroll', askDepth, { passive: true });
+  rail.addEventListener('scroll', askDepth, { passive: true });
+  window.addEventListener('resize', askDepth);
+  depth();
+
+  /* phones: show the bottom button once the hero's own button has scrolled away, hide it at the end */
+  var dock = document.getElementById('dock'), heroBtn = document.querySelector('.hero-cta .btn'), closeCard = document.querySelector('.close-card');
+  function dockCheck() { var a = heroBtn.getBoundingClientRect().bottom < 0, b = closeCard.getBoundingClientRect().top < window.innerHeight * .85; dock.classList.toggle('on', a && !b); }
+  window.addEventListener('scroll', dockCheck, { passive: true }); dockCheck();
 
   /* ---------- Small life: header line, tilt, reveal ---------- */
   var top = document.getElementById('top');
