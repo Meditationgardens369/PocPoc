@@ -148,6 +148,36 @@
   .tiny { font-size: 12.5px; color: var(--faint); line-height: 1.5; }
   .bad { color: var(--pink-deep); }
   .done { text-align: center; }
+
+  /* Brigitte's checks, 27 Oct 2026: a calendar with Marina's busy days, then allergies, the space and music */
+  .cal { background: var(--blush); border: 1.5px solid var(--line); border-radius: 18px; padding: 12px; max-width: 400px; }
+  .cal-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+  .cal-top b { font: 600 18px Fredoka, Nunito, sans-serif; text-transform: capitalize; }
+  .cal-nav { width: 38px; height: 38px; border-radius: 50%; border: 1.5px solid var(--line); background: var(--paper); color: var(--pink); font: 800 20px/1 Nunito, sans-serif; cursor: pointer; }
+  .cal-nav[disabled] { opacity: .3; cursor: default; }
+  .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; }
+  .cal-grid .dow { text-align: center; font: 800 11px Nunito, sans-serif; color: var(--faint); padding: 4px 0; }
+  .cal-d { aspect-ratio: 1; border: 0; border-radius: 12px; background: var(--paper); font: 700 15px Nunito, sans-serif; color: var(--ink); cursor: pointer; padding: 0; }
+  .cal-d.we { color: var(--pink-deep); }
+  .cal-d:hover:not([disabled]) { background: var(--pink-soft); }
+  .cal-d[disabled] { background: transparent; color: var(--faint); cursor: default; opacity: .55; }
+  .cal-d.busy { opacity: 1; text-decoration: line-through; background: repeating-linear-gradient(45deg, transparent 0 5px, rgba(168,148,140,.16) 5px 10px); }
+  .cal-d.sel, .cal-d.sel.we { background: var(--pink); color: #fff; box-shadow: 0 6px 14px rgba(233,75,154,.3); }
+  .cal-note { margin: 10px 2px 0; font-size: 13px; color: var(--muted); }
+  .cal-note b { color: var(--ink); }
+  .sub { font: 800 15px Nunito, sans-serif; color: var(--ink); margin: 18px 0 8px; }
+  .sub small { display: block; font-weight: 600; font-size: 13px; color: var(--muted); margin-top: 2px; }
+  .upload { display: flex; align-items: center; gap: 12px; cursor: pointer; background: var(--blush); border: 1.5px dashed var(--pink); border-radius: 16px; padding: 12px 14px; position: relative; }
+  .upload input { position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
+  .upload .ph { flex: none; width: 64px; height: 64px; border-radius: 12px; background: var(--pink-soft) center / cover no-repeat; display: grid; place-items: center; font: 700 28px Fredoka, Nunito, sans-serif; color: var(--pink); }
+  .upload .ph.has { color: transparent; }
+  .upload b { display: block; font-weight: 800; font-size: 15px; }
+  .upload span span { display: block; font-size: 13px; color: var(--muted); }
+  .upload:focus-within { outline: 2px solid var(--pink); }
+  .linkbtn { border: 0; background: none; color: var(--pink-deep); font: 700 13px Nunito, sans-serif; text-decoration: underline; cursor: pointer; padding: 6px 2px; }
+  .next-list { text-align: left; max-width: 460px; margin: 18px auto; padding: 0; list-style: none; display: grid; gap: 10px; counter-reset: nx; }
+  .next-list li { position: relative; background: var(--blush); border-radius: 16px; padding: 12px 14px 12px 50px; font-size: 14.5px; line-height: 1.45; counter-increment: nx; }
+  .next-list li::before { content: counter(nx); position: absolute; left: 12px; top: 12px; width: 28px; height: 28px; border-radius: 50%; background: var(--lion); color: #fff; display: grid; place-items: center; font: 600 15px Fredoka, Nunito, sans-serif; }
   .done .code { font: 700 38px/1 Fredoka, Nunito, sans-serif; color: var(--plum); letter-spacing: .06em; margin: 10px 0 8px; }
   .done p { font-size: 15px; color: var(--muted); margin: 0 0 12px; }
   .confetti { position: fixed; inset: 0; pointer-events: none; z-index: 50; }
@@ -253,8 +283,14 @@
 
       <section class="step" data-step="4">
         <h2 class="q"><span class="pt">Quando, <em>e onde?</em></span><span class="en">When, <em>and where?</em></span></h2>
-        <p class="hint"><span class="pt">Se ainda não tens a data, deixa em branco. Falamos disso.</span><span class="en">No date yet? Leave it blank. We will talk about it.</span></p>
-        <label class="f"><span class="pt">Data da festa</span><span class="en">Date of the party</span><input name="date" id="date" type="date"></label>
+        <p class="hint"><span class="pt">Os dias riscados já estão ocupados no calendário da Marina. Escolhe um dia livre.</span><span class="en">Crossed-out days are already booked in Marina's calendar. Pick a free one.</span></p>
+        <div class="cal" id="cal">
+          <div class="cal-top"><button type="button" class="cal-nav" id="calPrev" aria-label="Mês anterior / Previous month">&lsaquo;</button><b id="calMonth"></b><button type="button" class="cal-nav" id="calNext" aria-label="Mês seguinte / Next month">&rsaquo;</button></div>
+          <div class="cal-grid" id="calGrid"></div>
+          <p class="cal-note" id="calNote"></p>
+        </div>
+        <label class="chip" style="margin:10px 0 16px"><input type="checkbox" id="nodate"><span class="pt">Ainda não tenho data</span><span class="en">I don't have a date yet</span></label>
+        <input type="hidden" name="date" id="date">
         <p class="hint" style="margin:6px 0 8px"><span class="pt">Onde é a festa?</span><span class="en">Where is the party?</span></p>
         <div class="chips" id="towns">
           <label class="chip"><input type="radio" name="town" value="Portimão">Portimão</label>
@@ -266,27 +302,68 @@
           <label class="chip"><input type="radio" name="town" value="other"><span class="pt">Outro sítio</span><span class="en">Somewhere else</span></label>
         </div>
         <label class="f" id="townother" style="margin-top:10px" hidden><span class="pt">Onde?</span><span class="en">Where?</span><input name="where" id="where" type="text" data-ph-pt="Vila, rua, ou o nome do espaço" data-ph-en="Town, street, or the name of the venue"></label>
-        <div class="nav"><button class="btn ghost" type="button" data-prev><span class="pt">← Voltar</span><span class="en">← Back</span></button><button class="btn" type="button" data-next><span class="pt">Quase lá</span><span class="en">Nearly there</span></button></div>
+        <div class="nav"><button class="btn ghost" type="button" data-prev><span class="pt">← Voltar</span><span class="en">← Back</span></button><button class="btn" type="button" data-next><span class="pt">Seguinte</span><span class="en">Next</span></button></div>
       </section>
 
       <section class="step" data-step="5">
+        <h2 class="q"><span class="pt">Para tudo <em>correr bem</em></span><span class="en">So it all <em>goes well</em></span></h2>
+        <p class="hint"><span class="pt">A Marina pergunta sempre isto antes de dizer que sim. Responde já e poupas umas quantas mensagens.</span><span class="en">Marina always asks this before she says yes. Answer now and save a few messages.</span></p>
+
+        <p class="sub"><span class="pt">Alergias ou dietas especiais?</span><span class="en">Any allergies or special diets?</span><small><span class="pt">De crianças ou adultos. A comida é feita por nós, por isso queremos saber.</span><span class="en">Children or adults. We make the food ourselves, so we want to know.</span></small></p>
+        <div class="chips" id="allergies">
+          <label class="chip"><input type="checkbox" name="allergy" value="none"><span class="pt">Nenhuma</span><span class="en">None</span></label>
+          <label class="chip"><input type="checkbox" name="allergy" value="gluten"><span class="pt">Sem glúten</span><span class="en">Gluten free</span></label>
+          <label class="chip"><input type="checkbox" name="allergy" value="lactose"><span class="pt">Sem lactose</span><span class="en">Lactose free</span></label>
+          <label class="chip"><input type="checkbox" name="allergy" value="nuts"><span class="pt">Frutos secos</span><span class="en">Nuts</span></label>
+          <label class="chip"><input type="checkbox" name="allergy" value="vegetarian"><span class="pt">Vegetariano</span><span class="en">Vegetarian</span></label>
+          <label class="chip"><input type="checkbox" name="allergy" value="vegan"><span class="pt">Vegan</span><span class="en">Vegan</span></label>
+          <label class="chip"><input type="checkbox" name="allergy" value="other"><span class="pt">Outra</span><span class="en">Something else</span></label>
+        </div>
+        <label class="f" id="allergyotherbox" style="margin-top:10px" hidden><span class="pt">Conta-nos: o quê, e para quantas pessoas</span><span class="en">Tell us: what, and for how many people</span><input id="allergyother" type="text" data-ph-pt="Ex.: 2 crianças com alergia ao ovo" data-ph-en="E.g. 2 children allergic to egg"></label>
+
+        <p class="sub"><span class="pt">Onde vamos montar a festa?</span><span class="en">Where do we set up the party?</span></p>
+        <div class="chips" id="spaces">
+          <label class="chip"><input type="radio" name="space" value="garden"><span class="pt">Jardim ou quintal</span><span class="en">Garden or yard</span></label>
+          <label class="chip"><input type="radio" name="space" value="indoor"><span class="pt">Dentro de casa</span><span class="en">Indoors at home</span></label>
+          <label class="chip"><input type="radio" name="space" value="venue"><span class="pt">Espaço alugado</span><span class="en">A hired venue</span></label>
+          <label class="chip"><input type="radio" name="space" value="outdoor"><span class="pt">Parque ou praia</span><span class="en">Park or beach</span></label>
+          <label class="chip"><input type="radio" name="space" value="unsure"><span class="pt">Ainda não sei</span><span class="en">Not sure yet</span></label>
+        </div>
+        <label class="upload" style="margin-top:12px"><input type="file" id="spacephoto" accept="image/*"><span class="ph" id="spaceph">+</span><span><b><span class="pt">Uma foto do espaço</span><span class="en">A photo of the space</span></b><span class="pt" id="spacetxt-pt">A Marina vê se há lugar para as mesas e para o insuflável. Opcional, mas poupa uma visita.</span><span class="en" id="spacetxt-en">Marina checks there is room for the tables and the bouncy castle. Optional, but it saves a visit.</span></span></label>
+        <button type="button" class="linkbtn" id="spaceclear" hidden><span class="pt">Tirar a foto</span><span class="en">Remove the photo</span></button>
+
+        <p class="sub"><span class="pt">Queres música?</span><span class="en">Would you like music?</span><small><span class="pt">A Marina leva as colunas e põe música durante a festa. O preço, se houver, vem no orçamento.</span><span class="en">Marina brings the speakers and plays music during the party. Any cost is in the quote.</span></small></p>
+        <div class="chips" id="musics">
+          <label class="chip"><input type="radio" name="music" value="yes"><span class="pt">Sim, por favor</span><span class="en">Yes, please</span></label>
+          <label class="chip"><input type="radio" name="music" value="no"><span class="pt">Não, obrigada</span><span class="en">No, thanks</span></label>
+          <label class="chip"><input type="radio" name="music" value="maybe"><span class="pt">Talvez</span><span class="en">Maybe</span></label>
+        </div>
+        <div class="nav"><button class="btn ghost" type="button" data-prev><span class="pt">← Voltar</span><span class="en">← Back</span></button><button class="btn" type="button" data-next><span class="pt">Quase lá</span><span class="en">Nearly there</span></button></div>
+      </section>
+
+      <section class="step" data-step="6">
         <h2 class="q"><span class="pt">Para quem envio <em>o orçamento?</em></span><span class="en">Who do I send <em>the quote to?</em></span></h2>
         <div class="summary" id="summary"></div>
         <form id="form" autocomplete="on">
           <label class="f"><span class="pt">O teu nome</span><span class="en">Your name</span><input name="name" type="text" required data-ph-pt="Sofia" data-ph-en="Sofia"></label>
           <label class="f"><span class="pt">O teu email</span><span class="en">Your email</span><input name="email" type="email" inputmode="email" autocomplete="email" required data-ph-pt="sofia@exemplo.pt" data-ph-en="sofia@example.com"></label>
-          <label class="f"><span class="pt">Alguma coisa que eu deva saber?</span><span class="en">Anything I should know?</span><textarea name="notes" data-ph-pt="Um tema, alergias, um bolo, quantas crianças e quantos adultos..." data-ph-en="A theme, allergies, a cake, how many children and how many adults..."></textarea></label>
+          <label class="f"><span class="pt">Alguma coisa que eu deva saber?</span><span class="en">Anything I should know?</span><textarea name="notes" data-ph-pt="Um tema, um bolo, quantas crianças e quantos adultos..." data-ph-en="A theme, a cake, how many children and how many adults..."></textarea></label>
           <button class="btn block" type="submit" id="sendbtn"><span class="pt">Pedir o meu orçamento</span><span class="en">Request my quote</span></button>
-          <p class="tiny" id="note" style="margin-top:10px"><span class="pt">Chega ao teu email no mesmo dia, com um link para reservar a data. Sem listas, sem spam.</span><span class="en">It lands in your inbox the same day, with a link to hold the date. No lists, no spam.</span></p>
+          <p class="tiny" id="note" style="margin-top:10px"><span class="pt">O orçamento chega ao teu email no mesmo dia. Para guardar a data, pagas o sinal pelo link do email, com os dados de pagamento completos. Sem listas, sem spam.</span><span class="en">The quote lands in your inbox the same day. To hold the date you pay the deposit through the link in the email, with complete payment details. No lists, no spam.</span></p>
         </form>
         <div class="nav" style="margin-top:6px"><button class="btn ghost" type="button" data-prev><span class="pt">← Voltar</span><span class="en">← Back</span></button><span></span></div>
       </section>
 
-      <section class="step done" data-step="6">
+      <section class="step done" data-step="7">
         <div style="font-size:48px">🎉</div>
         <h2><span class="pt">Recebido, obrigada!</span><span class="en">Got it, thank you!</span></h2>
         <div class="code" id="code"></div>
-        <p><span class="pt">Guarda o código. O orçamento chega ao teu email no mesmo dia, com um link para reservar a data.</span><span class="en">Keep the code. Your quote lands in your inbox the same day, with a link to hold the date.</span></p>
+        <p><span class="pt">Guarda o código. É a referência do teu pedido e do pagamento.</span><span class="en">Keep the code. It is the reference for your request and your payment.</span></p>
+        <ol class="next-list">
+          <li><span class="pt">A Marina vê o teu pedido: o dia, o espaço, as alergias. Se precisar de saber mais alguma coisa, escreve-te por email.</span><span class="en">Marina looks at your request: the day, the space, the allergies. If she needs to know anything else, she emails you.</span></li>
+          <li><span class="pt">Recebes o orçamento por email no mesmo dia, com o link para pagar o sinal e os dados de pagamento completos: IBAN, nome do titular da conta e o teu código como referência.</span><span class="en">You get the quote by email the same day, with the link to pay the deposit and complete payment details: IBAN, the account holder's name and your code as the reference.</span></li>
+          <li><span class="pt">Pago o sinal, a data fica tua. Uns dias antes da festa recebes um lembrete com o valor que falta.</span><span class="en">Once the deposit is paid, the date is yours. A few days before the party you get a reminder with the amount still to pay.</span></li>
+        </ol>
         <button class="btn quiet" type="button" id="copybtn2"><span class="pt">Copiar o resumo com o código</span><span class="en">Copy the summary with the code</span></button>
         <p class="tiny" id="copynote" style="margin-top:10px"></p>
       </section>
@@ -329,7 +406,7 @@
 
   var html = document.documentElement;
   var $ = function (id) { return document.getElementById(id); };
-  var state = { occasion: null, menu: 'classic', sizeIdx: 0, fx: [], deco: 'simple', x: [], town: '', step: 0 };
+  var state = { occasion: null, menu: 'classic', sizeIdx: 0, fx: [], deco: 'simple', x: [], town: '', step: 0, allergies: [], space: '', music: '', photo: null };
   var T = {
     kids: { pt: 'Festa de crianças', en: 'Children\'s party' }, baby: { pt: 'Batizado ou chá de bebé', en: 'Christening or baby shower' }, adult: { pt: 'Aniversário de adultos', en: 'Adult birthday' }, wedding: { pt: 'Casamento', en: 'Wedding' }, event: { pt: 'Escola ou empresa', en: 'School or company' }, other: { pt: 'Outra festa', en: 'Another party' },
     classic: { pt: 'Menu Clássico', en: 'Classic menu' }, premium: { pt: 'Menu Premium', en: 'Premium menu' }, healthy: { pt: 'Mesa saudável', en: 'Healthy table' }, none: { pt: 'Sem comida', en: 'No food' },
@@ -337,7 +414,10 @@
     deco_none: { pt: 'Sem decoração', en: 'No decoration' }, deco_simple: { pt: 'Decoração Simples', en: 'Simple decoration' }, deco_medium: { pt: 'Decoração Média', en: 'Medium decoration' }, deco_full: { pt: 'Decoração Completa', en: 'Complete decoration' },
     jungle: { pt: 'Insuflável Selva', en: 'Jungle castle' }, castle: { pt: 'Insuflável Castelo', en: 'Castle' }, faces: { pt: 'Pinturas faciais', en: 'Face painting' }, popcorn: { pt: 'Pipocas', en: 'Popcorn' }, candy: { pt: 'Algodão doce', en: 'Candy floss' }, both: { pt: 'Pipocas e algodão doce', en: 'Popcorn and candy floss' }, games: { pt: 'Jogos tradicionais', en: 'Traditional games' }, mascot: { pt: 'Mascote', en: 'Mascot' }, icecream: { pt: 'Carrinho de gelados', en: 'Ice cream cart' },
     quoted: { pt: 'sob orçamento', en: 'quoted' }, upto: { pt: 'até ', en: 'up to ' }, more: { pt: 'mais', en: 'more' }, people: { pt: 'pessoas', en: 'people' }, plus: { pt: '+ itens sob orçamento', en: '+ items to be quoted' },
-    steps: { pt: ['A festa', 'A comida', 'O cenário', 'A diversão', 'Quando e onde', 'Para quem', 'Pronto'], en: ['The party', 'The food', 'The backdrop', 'The fun', 'When and where', 'Who', 'Done'] },
+    steps: { pt: ['A festa', 'A comida', 'O cenário', 'A diversão', 'Quando e onde', 'Para correr bem', 'Para quem', 'Pronto'], en: ['The party', 'The food', 'The backdrop', 'The fun', 'When and where', 'Good to know', 'Who', 'Done'] },
+    a_none: { pt: 'sem alergias', en: 'no allergies' }, a_gluten: { pt: 'sem glúten', en: 'gluten free' }, a_lactose: { pt: 'sem lactose', en: 'lactose free' }, a_nuts: { pt: 'frutos secos', en: 'nuts' }, a_vegetarian: { pt: 'vegetariano', en: 'vegetarian' }, a_vegan: { pt: 'vegan', en: 'vegan' }, a_other: { pt: 'outra', en: 'other' },
+    s_garden: { pt: 'jardim', en: 'garden' }, s_indoor: { pt: 'dentro de casa', en: 'indoors' }, s_venue: { pt: 'espaço alugado', en: 'hired venue' }, s_outdoor: { pt: 'parque ou praia', en: 'park or beach' }, s_unsure: { pt: 'espaço por decidir', en: 'space not decided' },
+    m_yes: { pt: 'com música', en: 'with music' }, m_no: { pt: 'sem música', en: 'no music' }, m_maybe: { pt: 'música talvez', en: 'music maybe' },
     stepOf: { pt: 'Passo {a} de {b}', en: 'Step {a} of {b}' }
   };
   function t(k) { return (T[k] || {})[html.getAttribute('data-lang')] || k; }
@@ -366,7 +446,7 @@
   }
 
   /* ---------- Steps ---------- */
-  var STEPS = 7;
+  var STEPS = 8;
   function renderProg() {
     var p = $('prog'); p.innerHTML = '';
     for (var i = 0; i < STEPS - 1; i++) {
@@ -382,7 +462,7 @@
     state.step = Math.max(0, Math.min(STEPS - 1, n));
     document.querySelectorAll('.step').forEach(function (s) { s.classList.toggle('active', parseInt(s.getAttribute('data-step'), 10) === state.step); });
     renderProg();
-    if (state.step === 5) { renderSummary(); }
+    if (state.step === 6) { renderSummary(); }
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
   document.querySelectorAll('[data-next]').forEach(function (b) { b.addEventListener('click', function () { go(state.step + 1); }); });
@@ -471,6 +551,118 @@
   document.querySelectorAll('input[name=x]').forEach(function (c) { c.addEventListener('change', function () { state.x = Array.prototype.map.call(document.querySelectorAll('input[name=x]:checked'), function (e) { return e.value; }); render(); }); });
   document.querySelectorAll('input[name=town]').forEach(function (r) { r.addEventListener('change', function () { state.town = this.value; $('townother').hidden = this.value !== 'other'; if (this.value === 'other') { $('where').focus(); } }); });
 
+  /* ---------- The date, against Marina's busy days ----------
+     pocpoc_busy_days holds only dates (no event details). n8n keeps it in step with her Google
+     Calendar; until then Adam adds rows by hand. If the list cannot be read, the calendar still
+     works and the note says Marina confirms the day. */
+  var BUSY = {}, busyOk = false, calView = null;
+  var MONTHS = { pt: ['janeiro', 'fevereiro', 'março', 'abril', 'maio', 'junho', 'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro'], en: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'] };
+  var DOW = { pt: ['S', 'T', 'Q', 'Q', 'S', 'S', 'D'], en: ['M', 'T', 'W', 'T', 'F', 'S', 'S'] };
+  function iso(d) { return d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2); }
+  function niceDate(v) { if (!v) { return ''; } var p = v.split('-'), d = new Date(+p[0], +p[1] - 1, +p[2]); return d.toLocaleDateString(html.getAttribute('data-lang') === 'pt' ? 'pt-PT' : 'en-GB', { weekday: 'long', day: 'numeric', month: 'long' }); }
+  var today0 = new Date(); today0.setHours(0, 0, 0, 0);
+  calView = new Date(today0.getFullYear(), today0.getMonth(), 1);
+  function renderCal() {
+    if (!calView || !$('calGrid')) { return; }
+    var l = html.getAttribute('data-lang') === 'en' ? 'en' : 'pt', y = calView.getFullYear(), m = calView.getMonth();
+    $('calMonth').textContent = MONTHS[l][m] + ' ' + y;
+    $('calPrev').disabled = y === today0.getFullYear() && m === today0.getMonth();
+    $('calNext').disabled = (y - today0.getFullYear()) * 12 + m - today0.getMonth() >= 12;
+    var g = $('calGrid'), sel = $('date').value; g.innerHTML = '';
+    DOW[l].forEach(function (d) { var e = document.createElement('span'); e.className = 'dow'; e.textContent = d; g.appendChild(e); });
+    var first = new Date(y, m, 1), pad = (first.getDay() + 6) % 7, days = new Date(y, m + 1, 0).getDate();
+    for (var i = 0; i < pad; i++) { g.appendChild(document.createElement('span')); }
+    for (var d = 1; d <= days; d++) {
+      var dt = new Date(y, m, d), v = iso(dt), b = document.createElement('button');
+      b.type = 'button'; b.className = 'cal-d'; b.textContent = d; b.setAttribute('data-d', v);
+      var wd = dt.getDay(); if (wd === 0 || wd === 6) { b.className += ' we'; }
+      if (dt <= today0) { b.disabled = true; }
+      else if (BUSY[v]) { b.disabled = true; b.className += ' busy'; b.title = l === 'pt' ? 'Ocupado' : 'Booked'; }
+      if (v === sel) { b.className += ' sel'; }
+      g.appendChild(b);
+    }
+    var pt = l === 'pt', note;
+    if ($('nodate').checked) { note = pt ? 'Sem data por agora. A Marina fala contigo sobre isso.' : 'No date for now. Marina will talk to you about it.'; }
+    else if (sel) { note = '<b>' + niceDate(sel) + '</b>' + (busyOk ? (pt ? ' está livre. A Marina confirma no orçamento.' : ' is free. Marina confirms it in the quote.') : (pt ? '. A Marina confirma se está livre.' : '. Marina confirms it is free.')); }
+    else { note = busyOk ? (pt ? 'Toca num dia.' : 'Tap a day.') : (pt ? 'Não consegui ver o calendário agora. Escolhe o dia e a Marina confirma se está livre.' : 'Could not load the calendar just now. Pick the day and Marina confirms it is free.'); }
+    $('calNote').innerHTML = note.replace(/^(<b>)?(.)/, function (m, b, c) { return (b || '') + c.toUpperCase(); });
+  }
+  $('calGrid').addEventListener('click', function (e) {
+    var b = e.target.closest('.cal-d'); if (!b || b.disabled) { return; }
+    $('date').value = b.getAttribute('data-d'); $('nodate').checked = false; renderCal();
+  });
+  $('calPrev').addEventListener('click', function () { calView = new Date(calView.getFullYear(), calView.getMonth() - 1, 1); renderCal(); });
+  $('calNext').addEventListener('click', function () { calView = new Date(calView.getFullYear(), calView.getMonth() + 1, 1); renderCal(); });
+  $('nodate').addEventListener('change', function () { if (this.checked) { $('date').value = ''; } renderCal(); });
+  fetch(SUPABASE_URL + '/rest/v1/pocpoc_busy_days?select=day&day=gte.' + iso(today0), { headers: { 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY } })
+    .then(function (r) { if (!r.ok) { throw new Error('status ' + r.status); } return r.json(); })
+    .then(function (rows) { rows.forEach(function (r) { BUSY[r.day] = true; }); busyOk = true; if (BUSY[$('date').value]) { $('date').value = ''; } renderCal(); })
+    .catch(function () { busyOk = false; renderCal(); });
+
+  /* ---------- Allergies, the space, music ---------- */
+  document.querySelectorAll('input[name=allergy]').forEach(function (c) { c.addEventListener('change', function () {
+    var boxes = document.querySelectorAll('input[name=allergy]');
+    if (this.checked && this.value === 'none') { boxes.forEach(function (b) { if (b.value !== 'none') { b.checked = false; } }); }
+    if (this.checked && this.value !== 'none') { boxes.forEach(function (b) { if (b.value === 'none') { b.checked = false; } }); }
+    state.allergies = Array.prototype.map.call(document.querySelectorAll('input[name=allergy]:checked'), function (e) { return e.value; });
+    $('allergyotherbox').hidden = state.allergies.indexOf('other') === -1;
+    if (!$('allergyotherbox').hidden && this.value === 'other' && this.checked) { $('allergyother').focus(); }
+  }); });
+  document.querySelectorAll('input[name=space]').forEach(function (r) { r.addEventListener('change', function () { state.space = this.value; }); });
+  document.querySelectorAll('input[name=music]').forEach(function (r) { r.addEventListener('change', function () { state.music = this.value; }); });
+  var photoUrl = null;
+  $('spacephoto').addEventListener('change', function () {
+    var f = this.files && this.files[0]; if (!f) { return; }
+    state.photo = f;
+    if (photoUrl) { URL.revokeObjectURL(photoUrl); }
+    photoUrl = URL.createObjectURL(f);
+    $('spaceph').style.backgroundImage = 'url(' + photoUrl + ')'; $('spaceph').classList.add('has');
+    $('spacetxt-pt').textContent = 'Foto escolhida: ' + f.name; $('spacetxt-en').textContent = 'Photo chosen: ' + f.name;
+    $('spaceclear').hidden = false;
+  });
+  $('spaceclear').addEventListener('click', function () {
+    state.photo = null; $('spacephoto').value = ''; $('spaceph').style.backgroundImage = ''; $('spaceph').classList.remove('has');
+    $('spacetxt-pt').textContent = 'A Marina vê se há lugar para as mesas e para o insuflável. Opcional, mas poupa uma visita.';
+    $('spacetxt-en').textContent = 'Marina checks there is room for the tables and the bouncy castle. Optional, but it saves a visit.';
+    this.hidden = true;
+  });
+  /* Phone photos are big: scale to 1600 px and send as JPEG. If the browser cannot read the file
+     (HEIC outside Safari, say), it goes up as it is. */
+  function shrink(file) {
+    return new Promise(function (res) {
+      var url = URL.createObjectURL(file), im = new Image();
+      im.onload = function () {
+        var k = Math.min(1, 1600 / Math.max(im.width, im.height)), c = document.createElement('canvas');
+        c.width = Math.round(im.width * k); c.height = Math.round(im.height * k);
+        c.getContext('2d').drawImage(im, 0, 0, c.width, c.height); URL.revokeObjectURL(url);
+        c.toBlob(function (b) { res(b || file); }, 'image/jpeg', 0.82);
+      };
+      im.onerror = function () { URL.revokeObjectURL(url); res(file); };
+      im.src = url;
+    });
+  }
+  var photoFailed = false;
+  function uploadPhoto(code) {
+    photoFailed = false;
+    if (!state.photo) { return Promise.resolve(''); }
+    return shrink(state.photo).then(function (blob) {
+      var type = (blob.type || 'image/jpeg').split(';')[0];
+      var ext = { 'image/jpeg': 'jpg', 'image/png': 'png', 'image/webp': 'webp', 'image/heic': 'heic', 'image/heif': 'heif' }[type] || 'jpg';
+      var path = 'pocpoc/' + code + '.' + ext;
+      return fetch(SUPABASE_URL + '/storage/v1/object/pocpoc-spaces/' + path, { method: 'POST', headers: { 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY, 'Content-Type': type, 'x-upsert': 'false' }, body: blob })
+        .then(function (r) { if (!r.ok) { throw new Error('upload ' + r.status); } return path; });
+    }).catch(function () { photoFailed = true; return ''; });
+  }
+  function prepText() {
+    var a = state.allergies.map(function (k) { return t('a_' + k); }), o = ($('allergyother').value || '').trim(), out = [];
+    if (o) { a = a.filter(function (x) { return x !== t('a_other'); }); a.push(o); }
+    if (a.length) { out.push((html.getAttribute('data-lang') === 'pt' ? 'alergias: ' : 'allergies: ') + a.join(', ')); }
+    if (state.space) { out.push(t('s_' + state.space)); }
+    if (state.photo) { out.push(html.getAttribute('data-lang') === 'pt' ? 'com foto do espaço' : 'with a photo of the space'); }
+    if (state.music) { out.push(t('m_' + state.music)); }
+    return out;
+  }
+
   /* ---------- Language ---------- */
   function setLang(l) {
     l = l === 'en' ? 'en' : 'pt';
@@ -478,7 +670,7 @@
     document.title = l === 'pt' ? 'Monta a tua festa · PocPoc' : 'Build your party · PocPoc';
     document.querySelectorAll('[data-ph-en]').forEach(function (el) { el.placeholder = el.getAttribute('data-ph-' + l) || ''; });
     try { localStorage.setItem('pocpoc-lang', l); } catch (e) {}
-    shown = {}; render(); if (state.step === 5) { renderSummary(); }
+    shown = {}; render(); renderCal(); if (state.step === 6) { renderSummary(); }
   }
   var saved = null; try { saved = localStorage.getItem('pocpoc-lang'); } catch (e) {}
   var guess = (navigator.language || '').toLowerCase().indexOf('pt') === 0 ? 'pt' : 'en';
@@ -492,8 +684,9 @@
     var parts = [];
     if (state.occasion) { parts.push('<b>' + t(state.occasion) + '</b>'); }
     c.lines.forEach(function (l) { parts.push(l[0] + ' (' + l[1] + ')'); });
-    if ($('date').value) { parts.push((pt ? 'dia ' : 'on ') + $('date').value); }
+    if ($('date').value) { parts.push((pt ? 'dia ' : 'on ') + niceDate($('date').value)); }
     if (where()) { parts.push((pt ? 'em ' : 'in ') + where()); }
+    parts = parts.concat(prepText());
     $('summary').innerHTML = (pt ? 'A tua festa: ' : 'Your party: ') + parts.join(' · ') + '. <b>' + (pt ? 'Total ' : 'Total ') + eur(c.total) + '€</b>' + upto(c) + (c.quoted.length ? ' ' + t('plus') : '') + '.';
   }
   function makeCode() { var a = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789', s = 'POC-'; for (var i = 0; i < 4; i++) { s += a[Math.floor(Math.random() * a.length)]; } return s; }
@@ -506,8 +699,9 @@
     out.push('');
     c.lines.forEach(function (l) { out.push(l[0] + ': ' + l[1]); });
     out.push('Total: ' + eur(c.total) + '€' + upto(c) + (c.quoted.length ? ' ' + t('plus') : ''));
-    if ($('date').value) { out.push((pt ? 'Data: ' : 'Date: ') + $('date').value); }
+    if ($('date').value) { out.push((pt ? 'Data: ' : 'Date: ') + niceDate($('date').value)); }
     if (where()) { out.push((pt ? 'Onde: ' : 'Where: ') + where()); }
+    prepText().forEach(function (x) { out.push(x.charAt(0).toUpperCase() + x.slice(1)); });
     if ((f.get('notes') || '').trim()) { out.push('', f.get('notes').trim()); }
     return out.join('\n');
   }
@@ -535,6 +729,13 @@
       quoted:   { n: 13, question: 'Items to be quoted', answer: c.quoted, type: 'many' },
       total_max: { n: 16, question: 'List total, top of ranges', answer: c.max, type: 'number', unit: 'EUR' },
       lang:     { n: 14, question: 'Language', answer: pt ? 'pt' : 'en', type: 'one' },
+      date_checked: { n: 17, question: 'Date checked against busy days', answer: !!$('date').value && busyOk, type: 'one' },
+      allergies: { n: 18, question: 'Allergies and diets', answer: state.allergies, type: 'many' },
+      allergy_other: { n: 19, question: 'Allergies, in their words', answer: ($('allergyother').value || '').trim(), type: 'text' },
+      space:    { n: 20, question: 'Where it is set up', answer: state.space, type: 'one' },
+      space_photo: { n: 21, question: 'Space photo path in bucket pocpoc-spaces', answer: state.photoPath || '', type: 'text' },
+      space_photo_failed: { n: 22, question: 'Space photo upload failed', answer: !!(state.photo && photoFailed), type: 'one' },
+      music:    { n: 23, question: 'Music', answer: state.music, type: 'one' },
       builder:  { n: 15, question: 'Source page', answer: 'monta', type: 'one' }
     };
     return { prospect_slug: QUOTE_SLUG, prospect_name: answers.name.answer.slice(0, 60), business: 'PocPoc quote request · ' + code, properties_target: null, answers: answers, worst_hour: summary(true).slice(0, 2000), source: 'web' };
@@ -548,12 +749,14 @@
     ev.preventDefault();
     var pt = html.getAttribute('data-lang') === 'pt';
     code = makeCode();
-    var p = payload();
     $('note').classList.remove('bad');
-    function finish() { $('code').textContent = code; go(6); confetti(); }
-    if (CONCEPT) { $('note').textContent = 'Concept: ' + JSON.stringify(p.answers); finish(); return; }
+    function finish() { $('code').textContent = code; go(7); confetti(); }
+    if (CONCEPT) { $('note').textContent = 'Concept: ' + JSON.stringify(payload().answers); finish(); return; }
     $('sendbtn').disabled = true; $('note').textContent = pt ? 'Um momento.' : 'One moment.';
-    fetch(SUPABASE_URL + '/rest/v1/intake_responses', { method: 'POST', headers: { 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY, 'Content-Type': 'application/json', 'Prefer': 'return=minimal' }, body: JSON.stringify(p) })
+    uploadPhoto(code).then(function (path) {
+      state.photoPath = path;
+      return fetch(SUPABASE_URL + '/rest/v1/intake_responses', { method: 'POST', headers: { 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY, 'Content-Type': 'application/json', 'Prefer': 'return=minimal' }, body: JSON.stringify(payload()) });
+    })
       .then(function (r) { if (!r.ok) { throw new Error('status ' + r.status); } finish(); })
       .catch(function () { $('sendbtn').disabled = false; $('note').classList.add('bad'); $('note').textContent = pt ? 'Não foi. Tenta outra vez, ou escreve para pocpocalgarve23@gmail.com.' : 'That did not go through. Try again, or email pocpocalgarve23@gmail.com.'; });
   });
