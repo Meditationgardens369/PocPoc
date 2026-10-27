@@ -18,6 +18,10 @@ work. Swap them for her own photos as soon as parents say yes to faces being sho
 | mood-familia.jpg | Family with party blowers and confetti | Miguel Teirlinck | https://unsplash.com/photos/WLlW03JZGBE |
 | mood-bebe-bolo.jpg | Toddler blowing out cake candles | Jorge Ibanez | https://unsplash.com/photos/cK6ixOQx1fI |
 | mood-bolas.jpg | Child chasing soap bubbles in a garden | Ben Griffiths | https://unsplash.com/photos/j00rZzJcuAU |
+| th-games-sack.jpg | Children in a sack race with balloons, used for "Jogos tradicionais" in the booking flow, marked "foto ilustrativa" | Fachry Hasan | https://unsplash.com/photos/W8CcpCP7hJ0 |
 | mood-adultos.jpg | Adults in party hats around a cake | Vitaly Gariev | https://unsplash.com/photos/E1qHLWspl-k |
+
+`th-games-sack.jpg` is the one stock photo outside the feeling section, because Marina has no
+games photo yet. Swap it for hers as soon as she sends one.
 
 Coming: Brigitte's photo of Marina with Anya, to replace one of these.
