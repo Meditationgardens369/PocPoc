@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pt-PT" data-lang="pt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A checklist da festa · PocPoc</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="color-scheme" content="light only">
+<link rel="icon" href="photos/logo-from-instagram.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600&family=Nunito:wght@600;700;800&display=swap">
+<style>
+  /* PocPoc's free party checklist, a gift on the home page. One A4 page. Open with ?lang=en for
+     English. checklist-pt.pdf and checklist-en.pdf are printed from this page (see the README). */
+  @page { size: A4; margin: 0; }
+  :root { --ink: #3F2519; --muted: #7A5F55; --line: #F0DDE4; --pink: #E94B9A; --pink-soft: #FCE4EF; --plum: #7B46C4; --plum-soft: #EEE6FA; --lion: #D9893A; --lion-soft: #FBE9D3; }
+  * { box-sizing: border-box; }
+  html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body { margin: 0; background: #EFE7EA; font: 13px/1.45 Nunito, Arial, sans-serif; color: var(--ink); }
+  html[data-lang="pt"] .en, html[data-lang="en"] .pt { display: none !important; }
+  .page { width: 210mm; height: 297mm; margin: 20px auto; background: #FFFAF7; position: relative; overflow: hidden; padding: 16mm 15mm 12mm; box-shadow: 0 20px 60px rgba(63,37,25,.18); }
+  @media print { body { background: none; } .page { margin: 0; box-shadow: none; } .noprint { display: none !important; } }
+  .page::before { content: ""; position: absolute; right: -60mm; top: -60mm; width: 150mm; height: 150mm; border-radius: 50%; background: radial-gradient(circle, rgba(233,75,154,.16), transparent 65%); }
+  .page::after { content: ""; position: absolute; left: -50mm; bottom: -50mm; width: 130mm; height: 130mm; border-radius: 50%; background: radial-gradient(circle, rgba(177,97,254,.13), transparent 65%); }
+  header { position: relative; z-index: 1; display: flex; align-items: center; gap: 14px; margin-bottom: 7mm; }
+  header img { width: 22mm; height: 22mm; border-radius: 50%; box-shadow: 0 4px 12px rgba(63,37,25,.15); }
+  header small { display: block; font: 800 9.5px Nunito, sans-serif; letter-spacing: .18em; text-transform: uppercase; color: var(--lion); }
+  h1 { margin: 2px 0 0; font: 600 33px/1.02 Fredoka, sans-serif; letter-spacing: -.01em; }
+  h1 em { font-style: normal; color: var(--pink); }
+  .intro { position: relative; z-index: 1; margin: 0 0 6mm; color: var(--muted); font-size: 13.5px; max-width: 150mm; }
+  .grid { position: relative; z-index: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 5mm 7mm; }
+  .blk { background: rgba(255,255,255,.85); border-radius: 14px; padding: 4mm 5mm 3.5mm; box-shadow: 0 2px 8px rgba(63,37,25,.05); border-top: 4px solid var(--pink); }
+  .blk.plum { border-top-color: var(--plum); } .blk.lion { border-top-color: var(--lion); }
+  .blk h2 { margin: 0 0 2.5mm; font: 600 16px Fredoka, sans-serif; display: flex; justify-content: space-between; align-items: baseline; }
+  .blk h2 span.when { font: 800 9px Nunito, sans-serif; letter-spacing: .14em; text-transform: uppercase; color: var(--pink); }
+  .blk.plum h2 span.when { color: var(--plum); } .blk.lion h2 span.when { color: var(--lion); }
+  ul { list-style: none; margin: 0; padding: 0; }
+  li { display: flex; gap: 8px; align-items: flex-start; padding: 1.3mm 0; border-bottom: 1px dashed var(--line); font-weight: 700; font-size: 12.3px; }
+  li:last-child { border-bottom: 0; }
+  li::before { content: ""; flex: none; width: 12px; height: 12px; margin-top: 2px; border: 2px solid var(--pink); border-radius: 4px; }
+  .blk.plum li::before { border-color: var(--plum); } .blk.lion li::before { border-color: var(--lion); }
+  li.us { color: var(--pink); }
+  footer { position: absolute; left: 15mm; right: 15mm; bottom: 11mm; z-index: 1; display: flex; justify-content: space-between; align-items: center; padding-top: 4mm; border-top: 1px solid var(--line); font-size: 11.5px; color: var(--muted); }
+  footer b { font: 600 15px Fredoka, sans-serif; color: var(--pink); }
+  .bar { text-align: center; margin: 20px; }
+  .bar button, .bar a { font: 800 15px Nunito, sans-serif; border: 0; border-radius: 999px; padding: 12px 22px; background: var(--pink); color: #fff; cursor: pointer; text-decoration: none; margin: 0 4px; }
+  .bar a { background: #fff; color: var(--ink); }
+</style>
+</head>
+<body>
+<div class="bar noprint">
+  <button type="button" onclick="window.print()"><span class="pt">Imprimir ou guardar em PDF</span><span class="en">Print or save as PDF</span></button>
+  <a href="index.html"><span class="pt">Voltar ao site</span><span class="en">Back to the site</span></a>
+</div>
+<div class="page">
+  <header>
+    <img src="photos/logo-from-instagram.png" alt="">
+    <div><small><span class="pt">Uma oferta da PocPoc</span><span class="en">A gift from PocPoc</span></small>
+      <h1><span class="pt">A checklist <em>da festa</em></span><span class="en">The party <em>checklist</em></span></h1></div>
+  </header>
+  <p class="intro"><span class="pt">Tudo o que vale a pena pensar, do mês antes até ao grande dia. Risca à medida que avanças, e aproveita cada momento.</span><span class="en">Everything worth thinking about, from a month before to the big day. Tick it off as you go, and enjoy every moment.</span></p>
+  <div class="grid">
+    <div class="blk"><h2><span class="pt">Para começar</span><span class="en">To start</span><span class="when"><span class="pt">1 mês antes</span><span class="en">1 month before</span></span></h2><ul>
+      <li><span class="pt">Escolher o dia e a hora</span><span class="en">Pick the day and the time</span></li>
+      <li><span class="pt">Fazer a lista de convidados (crianças e adultos)</span><span class="en">Make the guest list (children and adults)</span></li>
+      <li><span class="pt">Escolher o tema com a criança</span><span class="en">Choose the theme with your child</span></li>
+      <li><span class="pt">Decidir onde: casa, jardim ou espaço alugado</span><span class="en">Decide where: home, garden or a hired venue</span></li>
+      <li class="us"><span class="pt">Montar a festa no site da PocPoc e pedir orçamento</span><span class="en">Build the party on the PocPoc site and ask for a quote</span></li>
+    </ul></div>
+    <div class="blk plum"><h2><span class="pt">Os convidados</span><span class="en">The guests</span><span class="when"><span class="pt">3 semanas antes</span><span class="en">3 weeks before</span></span></h2><ul>
+      <li><span class="pt">Enviar os convites</span><span class="en">Send the invitations</span></li>
+      <li><span class="pt">Perguntar por alergias e dietas especiais</span><span class="en">Ask about allergies and special diets</span></li>
+      <li><span class="pt">Tirar uma foto do espaço onde vai ser a festa</span><span class="en">Take a photo of where the party will be</span></li>
+      <li><span class="pt">Escolher o bolo</span><span class="en">Choose the cake</span></li>
+    </ul></div>
+    <div class="blk lion"><h2><span class="pt">Os pormenores</span><span class="en">The details</span><span class="when"><span class="pt">2 semanas antes</span><span class="en">2 weeks before</span></span></h2><ul>
+      <li><span class="pt">Confirmar quantos vêm</span><span class="en">Confirm how many are coming</span></li>
+      <li><span class="pt">Pensar na música</span><span class="en">Think about the music</span></li>
+      <li><span class="pt">Planear as lembranças para levar para casa</span><span class="en">Plan the little gifts to take home</span></li>
+      <li><span class="pt">Escolher a roupa da festa</span><span class="en">Choose the party outfit</span></li>
+    </ul></div>
+    <div class="blk"><h2><span class="pt">Quase lá</span><span class="en">Nearly there</span><span class="when"><span class="pt">1 semana antes</span><span class="en">1 week before</span></span></h2><ul>
+      <li class="us"><span class="pt">Confirmar tudo com a PocPoc</span><span class="en">Confirm everything with PocPoc</span></li>
+      <li><span class="pt">Ao ar livre? Pensar em sombra e num plano B</span><span class="en">Outdoors? Think about shade and a plan B</span></li>
+      <li><span class="pt">Lembrar os convidados do dia e da hora</span><span class="en">Remind the guests of the day and time</span></li>
+      <li><span class="pt">Carregar o telemóvel para as fotos</span><span class="en">Charge your phone for the photos</span></li>
+    </ul></div>
+    <div class="blk plum"><h2><span class="pt">Na véspera</span><span class="en">The day before</span><span class="when"><span class="pt">1 dia antes</span><span class="en">1 day before</span></span></h2><ul>
+      <li><span class="pt">Arrumar e libertar o espaço</span><span class="en">Tidy and clear the space</span></li>
+      <li><span class="pt">Separar velas, isqueiro e faca para o bolo</span><span class="en">Set aside candles, a lighter and a cake knife</span></li>
+      <li><span class="pt">Deixar a roupa da festa pronta</span><span class="en">Lay out the party clothes</span></li>
+    </ul></div>
+    <div class="blk lion"><h2><span class="pt">O grande dia</span><span class="en">The big day</span><span class="when"><span class="pt">No dia e depois</span><span class="en">On the day and after</span></span></h2><ul>
+      <li class="us"><span class="pt">Abrir a porta à PocPoc e mostrar onde montar</span><span class="en">Open the door to PocPoc and show where to set up</span></li>
+      <li><span class="pt">Estar com quem gostas e tirar muitas fotos</span><span class="en">Be with the people you love and take lots of photos</span></li>
+      <li><span class="pt">Agradecer aos convidados e partilhar as fotos</span><span class="en">Thank your guests and share the photos</span></li>
+      <li class="us"><span class="pt">Contar-nos como foi, com uma avaliação</span><span class="en">Tell us how it went, with a review</span></li>
+    </ul></div>
+  </div>
+  <footer>
+    <span><b>PocPoc</b> · <span class="pt">festas, decoração e catering em todo o Algarve</span><span class="en">parties, decoration and catering across the Algarve</span></span>
+    <span>pocpocalgarve23@gmail.com</span>
+  </footer>
+</div>
+<script>
+(function () {
+  var q = null; try { q = new URLSearchParams(location.search).get('lang'); } catch (e) {}
+  var l = q || (function () { try { return localStorage.getItem('pocpoc-lang'); } catch (e) { return null; } })() || ((navigator.language || '').toLowerCase().indexOf('pt') === 0 ? 'pt' : 'en');
+  l = l === 'en' ? 'en' : 'pt';
+  document.documentElement.setAttribute('data-lang', l);
+  document.documentElement.setAttribute('lang', l === 'pt' ? 'pt-PT' : 'en');
+  document.title = l === 'pt' ? 'A checklist da festa · PocPoc' : 'The party checklist · PocPoc';
+})();
+</script>
+</body>
+</html>

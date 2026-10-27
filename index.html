@@ -124,19 +124,27 @@
   @keyframes bob { 50% { transform: translateY(-8px); } }
   @media (max-width: 520px) { .float.f2 { right: 0; } .float.f1 { max-width: 250px; } }
 
-  /* feeling band: stock photos, labelled */
-  .band { padding: 6px 0 64px; }
-  .band-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: 10px 30px; margin-bottom: 22px; }
-  .band-head h2 { font-size: clamp(24px, 3vw, 34px); max-width: 22ch; }
-  .band-head small { color: var(--faint); font-size: 12.5px; }
-  .marquee { overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); }
-  .track { display: flex; gap: 14px; width: max-content; animation: slide 60s linear infinite; }
-  .marquee:hover .track { animation-play-state: paused; }
-  @keyframes slide { to { transform: translateX(-50%); } }
-  .track figure { margin: 0; position: relative; width: 250px; height: 300px; border-radius: 24px; overflow: hidden; flex: none; box-shadow: var(--sh-s); }
-  .track figure:nth-child(odd) { height: 260px; margin-top: 40px; }
-  .track img { width: 100%; height: 100%; object-fit: cover; }
-  .track figcaption { position: absolute; left: 12px; bottom: 12px; color: #fff; font: 700 13px Nunito, sans-serif; background: rgba(63,37,25,.45); backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px); padding: 5px 11px; border-radius: 999px; }
+  /* care: numbers, then how guests are looked after */
+  .care { padding: 30px 0 90px; position: relative; isolation: isolate; }
+  .care::before { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, var(--ivory), #FCE9F0 40%, var(--ivory)); }
+  .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; padding: 34px 20px; margin-bottom: 70px; background: rgba(255,255,255,.7); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-radius: 30px; box-shadow: var(--sh-s); text-align: center; }
+  .stats b { display: block; font: 600 clamp(36px, 4.6vw, 58px)/1 var(--head); background: linear-gradient(135deg, var(--pink), var(--plum)); -webkit-background-clip: text; background-clip: text; color: transparent; font-variant-numeric: tabular-nums; }
+  .stats span { display: block; margin-top: 8px; font-weight: 800; font-size: 14px; color: var(--muted); }
+  @media (max-width: 760px) { .stats { grid-template-columns: 1fr 1fr; gap: 26px 10px; margin-bottom: 50px; } }
+  .care-head { text-align: center; max-width: 760px; margin: 0 auto 40px; }
+  .care-head .sub { margin-left: auto; margin-right: auto; }
+  .care-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  @media (max-width: 900px) { .care-grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 560px) { .care-grid { grid-template-columns: 1fr; } }
+  .care-card { position: relative; background: rgba(255,255,255,.82); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,.9); border-radius: 26px; padding: 26px 26px 24px; box-shadow: var(--sh-s); transition: transform .35s var(--ease), box-shadow .35s; }
+  .care-card:hover { transform: translateY(-6px); box-shadow: var(--sh-l); }
+  .care-card .ic { width: 52px; height: 52px; border-radius: 16px; display: grid; place-items: center; margin-bottom: 18px; background: var(--pink-soft); color: var(--pink); box-shadow: inset 0 0 0 1px rgba(233,75,154,.12); transition: transform .35s var(--ease); }
+  .care-card:hover .ic { transform: rotate(-6deg) scale(1.06); }
+  .care-card.plum .ic { background: var(--plum-soft); color: var(--plum); }
+  .care-card.lion .ic { background: var(--lion-soft); color: var(--lion-ink); }
+  .care-card svg { width: 26px; height: 26px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .care-card b { display: block; font: 600 21px/1.2 var(--head); margin-bottom: 6px; }
+  .care-card p { margin: 0; color: var(--muted); font-size: 15.5px; line-height: 1.55; }
 
   /* why us */
   .why { padding: 90px 0; background: var(--paper); border-radius: 48px 48px 0 0; }
@@ -282,22 +290,37 @@
   .q .who { font-size: 12.5px; color: var(--muted); font-weight: 800; }
   .q.empty { background: transparent; box-shadow: none; border: 1.5px dashed var(--line); color: var(--faint); font-size: 13.5px; }
 
-  /* gallery */
-  .gallery { padding: 0 0 96px; }
-  .gal-head { display: flex; justify-content: space-between; align-items: end; gap: 20px; margin-bottom: 24px; }
-  .gal-nav { display: flex; gap: 8px; }
-  .gal-nav button { width: 48px; height: 48px; border-radius: 50%; border: 0; background: var(--paper); box-shadow: var(--sh-s); cursor: pointer; font: 700 20px var(--head); color: var(--ink); transition: transform .2s; }
-  .gal-nav button:hover { transform: scale(1.06); }
-  .rail { display: flex; gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 6px 24px 20px; margin: 0 -24px; scroll-padding-left: 24px; scrollbar-width: none; cursor: grab; }
-  .rail::-webkit-scrollbar { display: none; }
-  .rail { perspective: 1400px; }
-  .rail figure { margin: 0; flex: none; width: min(320px, 74vw); scroll-snap-align: start; position: relative; border-radius: 26px; overflow: hidden; aspect-ratio: 4 / 5; box-shadow: var(--sh-s); cursor: zoom-in; transform: rotateY(var(--ry, 0deg)) scale(var(--sc, 1)); transition: transform .25s linear, box-shadow .3s; }
-  .rail figure.mid { box-shadow: var(--sh-l); }
-  .rail figure.w { width: min(440px, 86vw); }
-  .rail img { width: 100%; height: 100%; object-fit: cover; transition: transform 1s var(--ease); pointer-events: none; }
-  .rail figure:hover img { transform: scale(1.05); }
+  /* gallery: two rows of her real parties, edge to edge */
+  .gallery { padding: 10px 0 96px; }
+  .gal-head { text-align: center; max-width: 760px; margin: 0 auto 40px; }
+  .gal-head .sub { margin-left: auto; margin-right: auto; }
+  .script { display: block; font: 500 22px/1 "Segoe Script", "Brush Script MT", cursive; color: var(--pink-deep); margin-bottom: 10px; }
+  .mosaic { display: grid; gap: 10px; padding: 0 10px; }
+  .mrow { display: flex; gap: 10px; height: clamp(200px, 22vw, 300px); }
+  .mrow + .mrow { height: clamp(170px, 18vw, 250px); }
+  .mrow figure { margin: 0; flex: var(--w, 1) 1 0; min-width: 0; position: relative; border-radius: 22px; overflow: hidden; cursor: zoom-in; box-shadow: var(--sh-s); transition: flex-grow .6s var(--ease), box-shadow .4s; }
+  .mrow figure:hover { flex-grow: calc(var(--w, 1) * 1.35); box-shadow: var(--sh-l); }
+  .mrow img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--ease); }
+  .mrow figure:hover img { transform: scale(1.05); }
+  @media (max-width: 760px) {
+    .mosaic { padding: 0; }
+    .mrow { overflow-x: auto; padding: 0 16px; scroll-snap-type: x mandatory; scrollbar-width: none; height: 260px; }
+    .mrow + .mrow { height: 210px; }
+    .mrow::-webkit-scrollbar { display: none; }
+    .mrow figure { flex: none; width: calc(var(--w, 1) * 190px); scroll-snap-align: start; }
+    .mrow figure:hover { flex-grow: 0; }
+  }
   .lb figure { margin: 0; text-align: center; }
   .lb figcaption { color: #fff; font: 600 18px var(--head); margin-top: 14px; }
+
+  /* the gift */
+  .gift { padding: 0 0 90px; }
+  .gift-card { display: grid; grid-template-columns: .8fr 1.2fr; gap: 50px; align-items: center; background: linear-gradient(135deg, #EAF6FC, #F6EEFF); border-radius: 40px; padding: clamp(28px, 5vw, 60px); box-shadow: var(--sh-s); overflow: hidden; }
+  @media (max-width: 760px) { .gift-card { grid-template-columns: 1fr; gap: 30px; } }
+  .sheet { display: block; transform: rotate(-4deg); transition: transform .5s var(--ease); justify-self: center; max-width: 300px; }
+  .sheet:hover { transform: rotate(-1deg) translateY(-6px) scale(1.02); }
+  .sheet img { border-radius: 10px; box-shadow: 0 2px 6px rgba(63,37,25,.1), 0 30px 60px rgba(63,37,25,.22); }
+  .gift-card .btn { margin-top: 26px; }
 
   /* close */
   .close { padding: 0 0 80px; }
@@ -353,6 +376,7 @@
     <nav>
       <a class="navlink" href="#why"><span class="pt">Porquê nós</span><span class="en">Why us</span></a>
       <a class="navlink" href="#menus"><span class="pt">Menus e preços</span><span class="en">Menus and prices</span></a>
+      <a class="navlink" href="#gallery"><span class="pt">Galeria</span><span class="en">Gallery</span></a>
       <a class="navlink" href="#voices"><span class="pt">O que dizem</span><span class="en">What people say</span></a>
       <div class="lang" role="group" aria-label="Language"><button type="button" data-set="pt">PT</button><button type="button" data-set="en">EN</button></div>
       <a class="btn primary" href="monta.html"><span class="pt">Monta a tua festa</span><span class="en">Build your party</span></a>
@@ -367,7 +391,7 @@
       <div>
         <span class="kicker"><span class="pt">Festas, catering e decoração · Algarve</span><span class="en">Parties, catering and decoration · Algarve</span></span>
         <h1><span class="pt">A festa que imaginas, <em>feita à tua medida.</em></span><span class="en">The party you picture, <em>made to measure.</em></span></h1>
-        <p class="sub"><span class="pt">Comida caseira, cenário e diversão. Nós tratamos de tudo.</span><span class="en">Homemade food, the backdrop and the fun. We take care of it all.</span></p>
+        <p class="sub"><span class="pt">Há 7 anos que fazemos festas de coração por todo o Algarve. Comida caseira, um cenário lindo, diversão para todos, e nós lá, a cuidar de cada convidado.</span><span class="en">For 7 years we have been making parties with our whole heart across the Algarve. Homemade food, a beautiful backdrop, fun for everyone, and us there, looking after every guest.</span></p>
         <div class="hero-cta">
           <a class="btn primary big" href="monta.html"><span class="pt">Monta a tua festa</span><span class="en">Build your party</span><span class="arr">→</span></a>
           <small><span class="pt">Vês o preço em 2 minutos</span><span class="en">See the price in 2 minutes</span></small>
@@ -398,30 +422,36 @@
   </div>
 </section>
 
-<section class="band">
-  <div class="wrap band-head rv"><small><span class="pt">Fotografias ilustrativas</span><span class="en">Illustrative photos</span></small></div>
-  <div class="marquee" aria-hidden="true">
-    <div class="track" id="track">
-      <figure><img src="photos/mood-mae.jpg" alt="" loading="lazy"></figure>
-      <figure><img src="photos/mood-velas.jpg" alt="" loading="lazy" style="object-position:50% 30%"></figure>
-      <figure><img src="photos/mood-chapeus.jpg" alt="" loading="lazy"></figure>
-      <figure><img src="photos/mood-riso.jpg" alt="" loading="lazy"></figure>
-      <figure><img src="photos/mood-roda.jpg" alt="" loading="lazy"></figure>
-      <figure><img src="photos/mood-familia.jpg" alt="" loading="lazy"></figure>
-      <figure><img src="photos/mood-bebe-bolo.jpg" alt="" loading="lazy"></figure>
-      <figure><img src="photos/mood-bolas.jpg" alt="" loading="lazy" style="object-position:50% 35%"></figure>
-      <figure><img src="photos/mood-adultos.jpg" alt="" loading="lazy"></figure>
+<section class="care" id="care">
+  <div class="wrap">
+    <div class="stats rv">
+      <div><b data-count="7">7</b><span><span class="pt">anos a fazer festas</span><span class="en">years of parties</span></span></div>
+      <div><b data-count="150" data-plus>150+</b><span><span class="pt">festas e eventos</span><span class="en">parties and events</span></span></div>
+      <div><b data-count="2">2</b><span><span class="pt">monitores em cada festa</span><span class="en">animators at every party</span></span></div>
+      <div><b>Algarve</b><span><span class="pt">de ponta a ponta</span><span class="en">from end to end</span></span></div>
+    </div>
+    <div class="care-head rv">
+      <h2 class="h2"><span class="pt">Os teus convidados, <em>recebidos como família.</em></span><span class="en">Your guests, <em>welcomed like family.</em></span></h2>
+      <p class="sub"><span class="pt">Para nós, uma festa não é só comida bonita e um cenário lindo. É cada pessoa que entra sentir-se bem-vinda, bem servida e à vontade. É isso que nos faz felizes.</span><span class="en">For us a party is more than beautiful food and a lovely backdrop. It is every person who walks in feeling welcome, well looked after and at ease. That is what makes us happy.</span></p>
+    </div>
+    <div class="care-grid">
+      <div class="care-card rv pink"><span class="ic"><svg viewBox="0 0 24 24"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg></span><b><span class="pt">Bem-vindos à festa</span><span class="en">Welcomed in</span></b><p><span class="pt">Recebemos cada convidado com um sorriso, como se viesse a nossa casa.</span><span class="en">We greet every guest with a smile, as if they were coming into our own home.</span></p></div>
+      <div class="care-card rv plum"><span class="ic"><svg viewBox="0 0 24 24"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/></svg></span><b><span class="pt">A mesa sempre bonita</span><span class="en">A table that always looks lovely</span></b><p><span class="pt">Vamos repondo a comida ao longo da festa, para estar sempre cheia e apetitosa.</span><span class="en">We keep topping up the food through the party, so it always looks full and inviting.</span></p></div>
+      <div class="care-card rv lion"><span class="ic"><svg viewBox="0 0 24 24"><path d="m6 8 1.75 12.28a2 2 0 0 0 2 1.72h4.54a2 2 0 0 0 2-1.72L18 8"/><path d="M5 8h14"/><path d="M7 15a6.47 6.47 0 0 1 5 0 6.47 6.47 0 0 0 5 0"/><path d="m12 8 1-6h2"/></svg></span><b><span class="pt">Ninguém fica com sede</span><span class="en">Nobody goes thirsty</span></b><p><span class="pt">Água e sumos sempre prontos, para os mais pequenos e para os graúdos.</span><span class="en">Water and juice always ready, for the little ones and the grown-ups.</span></p></div>
+      <div class="care-card rv plum"><span class="ic"><svg viewBox="0 0 24 24"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/><path d="M8 12h.01"/><path d="M12 12h.01"/><path d="M16 12h.01"/></svg></span><b><span class="pt">Explicamos tudo</span><span class="en">We explain everything</span></b><p><span class="pt">O que tem cada prato, o que é sem glúten, o que vem a seguir. É só perguntar.</span><span class="en">What is in each dish, what is gluten free, what happens next. Just ask.</span></p></div>
+      <div class="care-card rv lion"><span class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><path d="M9 9h.01"/><path d="M15 9h.01"/></svg></span><b><span class="pt">De olho nas crianças</span><span class="en">An eye on the children</span></b><p><span class="pt">Dois monitores em cada festa, atentos às brincadeiras e aos mais pequenos.</span><span class="en">Two animators at every party, keeping an eye on the games and the little ones.</span></p></div>
+      <div class="care-card rv pink"><span class="ic"><svg viewBox="0 0 24 24"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z"/></svg></span><b><span class="pt">Feito com carinho</span><span class="en">Made with love</span></b><p><span class="pt">Tudo caseiro, feito na própria manhã e posto com cuidado ao tema da festa.</span><span class="en">Everything homemade, made that morning and laid out with care to the party theme.</span></p></div>
     </div>
   </div>
 </section>
 
 <section class="why" id="why">
   <div class="wrap">
-    <h2 class="h2 rv" style="margin-bottom:36px"><span class="pt">Porquê a <em>PocPoc</em></span><span class="en">Why <em>PocPoc</em></span></h2>
+    <h2 class="h2 rv" style="margin-bottom:36px"><span class="pt">Uma festa pensada <em>só para ti.</em></span><span class="en">A party made <em>just for you.</em></span></h2>
     <div class="pillars">
-      <button type="button" class="pillar rv"><span class="pi tilt"><img src="photos/t-kpop.jpg" alt="" loading="lazy"></span><span class="pl"><b><span class="pt">À tua medida</span><span class="en">Made to measure</span></b><i>+</i></span><span class="more"><span class="pt">Os menus são só o ponto de partida. Adaptamos tudo à tua festa.</span><span class="en">The menus are only a starting point. We shape everything around your party.</span></span></button>
-      <button type="button" class="pillar rv"><span class="pi tilt"><img src="photos/marina-fabio.jpg" alt="" loading="lazy" style="object-position:50% 40%"></span><span class="pl"><b><span class="pt">Connosco na festa</span><span class="en">With you at the party</span></b><i>+</i></span><span class="more"><span class="pt">Estamos lá a servir e a cuidar dos teus convidados. Ninguém de copo vazio.</span><span class="en">We are there serving and looking after your guests. Nobody with an empty glass.</span></span></button>
-      <button type="button" class="pillar rv"><span class="pi tilt"><img src="photos/t-minnie.jpg" alt="" loading="lazy"></span><span class="pl"><b><span class="pt">Feito nessa manhã</span><span class="en">Made that morning</span></b><i>+</i></span><span class="more"><span class="pt">Caseiro, fresco e apresentado ao tema da festa.</span><span class="en">Homemade, fresh and presented to the theme of the party.</span></span></button>
+      <button type="button" class="pillar rv"><span class="pi tilt"><img src="photos/t-kpop.jpg" alt="" loading="lazy"></span><span class="pl"><b><span class="pt">À tua medida</span><span class="en">Made to measure</span></b><i>+</i></span><span class="more"><span class="pt">Contas-nos o que imaginas e nós fazemos acontecer. O menu é só o ponto de partida: sem glúten, vegetariano, o tema com que a tua criança sonha.</span><span class="en">Tell us what you picture and we make it happen. The menu is only the starting point: gluten free, vegetarian, the theme your child dreams of.</span></span></button>
+      <button type="button" class="pillar rv"><span class="pi tilt"><img src="photos/t-candyfloss.jpg" alt="" loading="lazy"></span><span class="pl"><b><span class="pt">Tudo num só lugar</span><span class="en">All in one place</span></b><i>+</i></span><span class="more"><span class="pt">Comida, decoração, insufláveis, pipocas e algodão doce. Uma só conversa connosco e a festa fica tratada, sem andares a falar com cinco pessoas.</span><span class="en">Food, decoration, bouncy castles, popcorn and candy floss. One conversation with us and the party is sorted, without talking to five different people.</span></span></button>
+      <button type="button" class="pillar rv"><span class="pi tilt"><img src="photos/t-castle.jpg" alt="" loading="lazy"></span><span class="pl"><b><span class="pt">Diversão para todos</span><span class="en">Fun for everyone</span></b><i>+</i></span><span class="more"><span class="pt">Castelos insufláveis, pinturas faciais, jogos tradicionais e mascotes. Os miúdos não param e os pais podem, finalmente, descansar.</span><span class="en">Bouncy castles, face painting, traditional games and mascots. The kids never stop and the parents can finally relax.</span></span></button>
     </div>
   </div>
 </section>
@@ -459,7 +489,7 @@
                 <button type="button" class="xbtn" data-fx="burgers"><span class="pt">Mini hambúrgueres</span><span class="en">Mini burgers</span><em><span class="pt">3,50€/pessoa</span><span class="en">€3.50/person</span></em></button>
                 <button type="button" class="xbtn" data-fx="cupcakes"><span class="pt">Cupcakes do tema</span><span class="en">Themed cupcakes</span><em><span class="pt">4,50€/pessoa</span><span class="en">€4.50/person</span></em></button>
               </div>
-              <p class="flex-note"><span class="pt">É um ponto de partida. Adaptamos tudo a ti.</span><span class="en">A starting point. We adapt it all to you.</span></p>
+              <p class="flex-note"><span class="pt">É só um ponto de partida. Diz-nos o que gostavas e adaptamos com todo o gosto.</span><span class="en">It is only a starting point. Tell us what you would love and we will happily adapt it.</span></p>
             </div>
             <div class="menu-pic"><img id="menuImg" src="photos/t-minnie.jpg" alt=""><div class="price"><b id="menuPrice">250€</b><span id="menuPpl"></span></div></div>
           </div>
@@ -525,25 +555,43 @@
   </div>
 </section>
 
-<section class="gallery">
-  <div class="wrap">
-    <div class="gal-head rv">
-      <h2 class="h2"><span class="pt">Festas <em>que já fizemos.</em></span><span class="en">Parties <em>we have done.</em></span></h2>
-      <div class="gal-nav"><button type="button" id="galPrev" aria-label="Anterior">←</button><button type="button" id="galNext" aria-label="Seguinte">→</button></div>
+<section class="gallery" id="gallery">
+  <div class="wrap gal-head rv">
+    <span class="script"><span class="pt">A nossa galeria</span><span class="en">Our gallery</span></span>
+    <h2 class="h2"><span class="pt">Momentos que fizemos <em>acontecer.</em></span><span class="en">Moments we brought <em>to life.</em></span></h2>
+    <p class="sub"><span class="pt">Aniversários, batizados, chás de bebé, casamentos e festas de empresa, por todo o Algarve. Cada uma feita à medida, sempre com o mesmo carinho. Toca numa foto para a veres em grande.</span><span class="en">Birthdays, christenings, baby showers, weddings and company parties, all over the Algarve. Each one made to measure, always with the same care. Tap a photo to see it big.</span></p>
+  </div>
+  <div class="mosaic" id="rail">
+    <div class="mrow">
+        <figure style="--w:2.0"><img src="photos/hero.jpg" alt="" loading="lazy"><figcaption hidden data-pt="Festa Bluey, 5 anos" data-en="Bluey party, age 5"></figcaption></figure>
+        <figure style="--w:1.0"><img src="photos/t-minnie.jpg" alt="" loading="lazy"><figcaption hidden data-pt="Mesa Minnie, Menu Clássico" data-en="Minnie table, Classic menu"></figcaption></figure>
+        <figure style="--w:1.3"><img src="photos/t-kpop.jpg" alt="" loading="lazy"><figcaption hidden data-pt="Decoração Completa, K-Pop" data-en="Complete decoration, K-Pop"></figcaption></figure>
+        <figure style="--w:1.0"><img src="photos/t-batizado.jpg" alt="" loading="lazy"><figcaption hidden data-pt="Batizado" data-en="Christening"></figcaption></figure>
+        <figure style="--w:1.2"><img src="photos/t-burgers.jpg" alt="" loading="lazy"><figcaption hidden data-pt="Mini hambúrgueres, Menu Premium" data-en="Mini burgers, Premium menu"></figcaption></figure>
+        <figure style="--w:1.0"><img src="photos/t-bossbaby.jpg" alt="" loading="lazy"><figcaption hidden data-pt="Decoração Completa, Boss Baby" data-en="Complete decoration, Boss Baby"></figcaption></figure>
     </div>
-    <div class="rail" id="rail">
-      <figure class="w"><img src="photos/hero.jpg" alt="" loading="lazy"><figcaption hidden data-pt="Festa Bluey, 5 anos" data-en="Bluey party, age 5"></figcaption></figure>
-      <figure><img src="photos/t-minnie.jpg" alt="" loading="lazy"><figcaption hidden data-pt="Mesa Minnie, Menu Clássico" data-en="Minnie table, Classic menu"></figcaption></figure>
-      <figure><img src="photos/t-kpop.jpg" alt="" loading="lazy"><figcaption hidden data-pt="Decoração Completa, K-Pop" data-en="Complete decoration, K-Pop"></figcaption></figure>
-      <figure><img src="photos/t-burgers.jpg" alt="" loading="lazy"><figcaption hidden data-pt="Mini hambúrgueres, Menu Premium" data-en="Mini burgers, Premium menu"></figcaption></figure>
-      <figure><img src="photos/t-batizado.jpg" alt="" loading="lazy"><figcaption hidden data-pt="Batizado" data-en="Christening"></figcaption></figure>
-      <figure><img src="photos/t-candyfloss.jpg" alt="" loading="lazy"><figcaption hidden data-pt="Algodão doce na hora" data-en="Candy floss made on the spot"></figcaption></figure>
-      <figure><img src="photos/t-bossbaby.jpg" alt="" loading="lazy"><figcaption hidden data-pt="Decoração Completa, Boss Baby" data-en="Complete decoration, Boss Baby"></figcaption></figure>
-      <figure class="w"><img src="photos/t-anya.jpg" alt="" loading="lazy"><figcaption hidden data-pt="A festa da Anya, mesa saudável" data-en="Anya's party, the healthy table"></figcaption></figure>
-      <figure><img src="photos/t-wedding.jpg" alt="" loading="lazy"><figcaption hidden data-pt="Casamento" data-en="Wedding"></figcaption></figure>
-      <figure><img src="photos/t-hello40.jpg" alt="" loading="lazy"><figcaption hidden data-pt="Festa de adultos" data-en="Adult birthday"></figcaption></figure>
-      <figure><img src="photos/t-babyshower.jpg" alt="" loading="lazy"><figcaption hidden data-pt="Chá de bebé" data-en="Baby shower"></figcaption></figure>
-      <figure><img src="photos/t-castle.jpg" alt="" loading="lazy"><figcaption hidden data-pt="Insuflável Castelo" data-en="The castle"></figcaption></figure>
+    <div class="mrow">
+        <figure style="--w:0.9"><img src="photos/t-hello40.jpg" alt="" loading="lazy"><figcaption hidden data-pt="Festa de adultos" data-en="Adult birthday"></figcaption></figure>
+        <figure style="--w:1.8"><img src="photos/t-anya.jpg" alt="" loading="lazy"><figcaption hidden data-pt="A festa da Anya, mesa saudável" data-en="Anya's party, the healthy table"></figcaption></figure>
+        <figure style="--w:1.1"><img src="photos/t-wedding.jpg" alt="" loading="lazy"><figcaption hidden data-pt="Casamento" data-en="Wedding"></figcaption></figure>
+        <figure style="--w:1.0"><img src="photos/t-babyshower.jpg" alt="" loading="lazy"><figcaption hidden data-pt="Chá de bebé" data-en="Baby shower"></figcaption></figure>
+        <figure style="--w:1.0"><img src="photos/t-candyfloss.jpg" alt="" loading="lazy"><figcaption hidden data-pt="Algodão doce na hora" data-en="Candy floss made on the spot"></figcaption></figure>
+        <figure style="--w:1.3"><img src="photos/t-castle.jpg" alt="" loading="lazy"><figcaption hidden data-pt="Insuflável Castelo" data-en="The castle"></figcaption></figure>
+        <figure style="--w:1.0"><img src="photos/t-marina.jpg" alt="" loading="lazy"><figcaption hidden data-pt="A Marina no algodão doce" data-en="Marina at the candy floss"></figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section class="gift" id="gift">
+  <div class="wrap">
+    <div class="gift-card rv">
+      <a class="sheet" href="checklist.html" target="_blank" rel="noopener"><img src="photos/checklist-preview.png" alt="A checklist da festa PocPoc" loading="lazy"></a>
+      <div>
+        <span class="kicker"><span class="pt">Uma oferta nossa</span><span class="en">A gift from us</span></span>
+        <h2 class="h2"><span class="pt">A checklist <em>da festa.</em></span><span class="en">The party <em>checklist.</em></span></h2>
+        <p class="sub"><span class="pt">Tudo o que tens de pensar, do mês antes até ao grande dia, numa folha só. Para imprimir ou guardar no telemóvel. Com carinho, da Marina e do Fábio.</span><span class="en">Everything to think about, from a month before to the big day, on one page. Print it or keep it on your phone. With love, from Marina and Fábio.</span></p>
+        <a class="btn primary pt" href="checklist-pt.pdf" download>Descarregar grátis <span class="arr">↓</span></a><a class="btn primary en" href="checklist-en.pdf" download>Free download <span class="arr">↓</span></a>
+      </div>
     </div>
   </div>
 </section>
@@ -552,8 +600,8 @@
   <div class="wrap">
     <div class="close-card rv">
       <div class="in">
-        <h2><span class="pt">A tua festa <em>começa aqui.</em></span><span class="en">Your party <em>starts here.</em></span></h2>
-        <p><span class="pt">Orçamento no mesmo dia.</span><span class="en">A quote the same day.</span></p>
+        <h2><span class="pt">Vamos fazer a tua festa <em>juntos?</em></span><span class="en">Shall we make your party <em>together?</em></span></h2>
+        <p><span class="pt">Conta-nos o que imaginas. A Marina responde no mesmo dia, com todo o carinho e um orçamento à tua medida.</span><span class="en">Tell us what you picture. Marina replies the same day, with all her care and a quote made to measure.</span></p>
         <a class="btn big" href="monta.html"><span class="pt">Monta a tua festa</span><span class="en">Build your party</span><span class="arr">→</span></a>
         <small><span class="pt">Ou escreve-nos: pocpocalgarve23@gmail.com</span><span class="en">Or write to us: pocpocalgarve23@gmail.com</span></small>
       </div>
@@ -564,7 +612,7 @@
 
 <footer>
   <div class="wrap">
-    <div><b style="font:600 20px var(--head);color:var(--pink)">PocPoc</b> <span style="color:var(--lion);font-weight:800">· Momentos doces</span><br><span class="pt">Festas, decoração e catering em todo o Algarve.</span><span class="en">Parties, decoration and catering across the Algarve.</span></div>
+    <div><b style="font:600 20px var(--head);color:var(--pink)">PocPoc</b> <span style="color:var(--lion);font-weight:800">· Momentos doces</span><br><span class="pt">Festas, decoração e catering em todo o Algarve, desde 2019.</span><span class="en">Parties, decoration and catering across the Algarve, since 2019.</span></div>
     <div class="social">
       <a id="iglink" href="#" hidden aria-label="Instagram" title="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.2c3.2 0 3.6 0 4.8.1 1.2.1 1.8.2 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1 .4 2.2.1 1.2.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1 .4-2.2.4-1.2.1-1.6.1-4.8.1s-3.6 0-4.8-.1c-1.2-.1-1.8-.2-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1-.4-2.2C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.8c.1-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1-.4 2.2-.4C8.4 2.2 8.8 2.2 12 2.2zm0 1.8c-3.1 0-3.5 0-4.7.1-1.1 0-1.6.2-2 .4-.5.2-.8.4-1.1.7-.3.3-.6.7-.7 1.1-.2.4-.3 1-.4 2C4 9.5 4 9.9 4 12s0 3.5.1 4.7c0 1.1.2 1.6.4 2 .2.5.4.8.7 1.1.3.3.7.6 1.1.7.4.2 1 .3 2 .4 1.2.1 1.6.1 4.7.1s3.5 0 4.7-.1c1.1 0 1.6-.2 2-.4.5-.2.8-.4 1.1-.7.3-.3.6-.7.7-1.1.2-.4.3-1 .4-2 .1-1.2.1-1.6.1-4.7s0-3.5-.1-4.7c0-1.1-.2-1.6-.4-2-.2-.5-.4-.8-.7-1.1-.3-.3-.7-.6-1.1-.7-.4-.2-1-.3-2-.4C15.5 4 15.1 4 12 4zm0 3a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 1.8a3.2 3.2 0 1 0 0 6.4 3.2 3.2 0 0 0 0-6.4zm5.2-2.2a1.2 1.2 0 1 1 0 2.4 1.2 1.2 0 0 1 0-2.4z"/></svg></a>
       <a id="fblink" href="#" hidden aria-label="Facebook" title="Facebook"><svg viewBox="0 0 24 24"><path d="M13.5 22v-8h2.7l.4-3.2h-3.1V8.8c0-.9.3-1.6 1.6-1.6h1.7V4.4c-.3 0-1.3-.1-2.5-.1-2.5 0-4.1 1.5-4.1 4.2v2.3H7.4V14h2.8v8h3.3z"/></svg></a>
@@ -815,15 +863,8 @@
     });
   }
 
-  /* ---------- Gallery rail ---------- */
-  var rail = document.getElementById('rail');
-  function step(dir) { rail.scrollBy({ left: dir * Math.min(rail.clientWidth * .8, 680), behavior: 'smooth' }); }
-  document.getElementById('galPrev').addEventListener('click', function () { step(-1); });
-  document.getElementById('galNext').addEventListener('click', function () { step(1); });
-  var drag = null, moved = false;
-  rail.addEventListener('pointerdown', function (e) { if (e.pointerType !== 'mouse') { return; } drag = { x: e.clientX, l: rail.scrollLeft }; moved = false; rail.style.scrollSnapType = 'none'; });
-  window.addEventListener('pointermove', function (e) { if (!drag) { return; } var dx = e.clientX - drag.x; if (Math.abs(dx) > 4) { moved = true; } rail.scrollLeft = drag.l - dx; });
-  window.addEventListener('pointerup', function () { if (drag) { drag = null; rail.style.scrollSnapType = ''; } });
+  /* ---------- Gallery ---------- */
+  var rail = document.getElementById('rail'), moved = false;
 
   /* ---------- Lightbox: gallery photos and the original flyers ---------- */
   var lb = document.getElementById('lb');
@@ -847,24 +888,14 @@
   }
   /* photos drift inside their cards as you scroll, and the gallery bends like a carousel */
   var pis = [].slice.call(document.querySelectorAll('.pillar .pi'));
-  var figs = [].slice.call(rail.querySelectorAll('figure'));
   var depthTick = false;
   function depth() {
     depthTick = false; if (still) { return; }
     var h = window.innerHeight;
     pis.forEach(function (el) { var r = el.getBoundingClientRect(); if (r.bottom < 0 || r.top > h) { return; } var k = ((r.top + r.height / 2) / h - .5); el.style.setProperty('--iy', (k * -9) + '%'); });
-    var rr = rail.getBoundingClientRect(), mid = rr.left + rr.width / 2, best = null, bd = 1e9;
-    figs.forEach(function (f) {
-      var r = f.getBoundingClientRect(), d = (r.left + r.width / 2 - mid) / rr.width;
-      var a = Math.max(-1, Math.min(1, d));
-      f.style.setProperty('--ry', (a * -14) + 'deg'); f.style.setProperty('--sc', (1 - Math.min(.1, Math.abs(a) * .12)).toFixed(3));
-      if (Math.abs(d) < bd) { bd = Math.abs(d); best = f; }
-    });
-    figs.forEach(function (f) { f.classList.toggle('mid', f === best); });
   }
   function askDepth() { if (!depthTick) { depthTick = true; requestAnimationFrame(depth); } }
   window.addEventListener('scroll', askDepth, { passive: true });
-  rail.addEventListener('scroll', askDepth, { passive: true });
   window.addEventListener('resize', askDepth);
   depth();
 
@@ -872,6 +903,21 @@
   var dock = document.getElementById('dock'), heroBtn = document.querySelector('.hero-cta .btn'), closeCard = document.querySelector('.close-card');
   function dockCheck() { var a = heroBtn.getBoundingClientRect().bottom < 0, b = closeCard.getBoundingClientRect().top < window.innerHeight * .85; dock.classList.toggle('on', a && !b); }
   window.addEventListener('scroll', dockCheck, { passive: true }); dockCheck();
+
+  /* the numbers count up the first time they are seen */
+  var counted = false, statsEl = document.querySelector('.stats');
+  function countStats() {
+    if (counted || statsEl.getBoundingClientRect().top > window.innerHeight * .9) { return; }
+    counted = true;
+    [].forEach.call(statsEl.querySelectorAll('b[data-count]'), function (b) {
+      var to = +b.getAttribute('data-count'), plus = b.hasAttribute('data-plus') ? '+' : '', t0 = performance.now();
+      if (still) { return; }
+      var fin = false;
+      (function f(t) { if (fin) { return; } var p = Math.max(0, Math.min(1, (t - t0) / 1400)); p = 1 - Math.pow(1 - p, 3); b.textContent = Math.max(1, Math.round(to * p)) + plus; if (p < 1) { requestAnimationFrame(f); } else { fin = true; } })(t0);
+      setTimeout(function () { fin = true; b.textContent = to + plus; }, 1600);
+    });
+  }
+  window.addEventListener('scroll', countStats, { passive: true }); countStats();
 
   /* ---------- Small life: header line, tilt, reveal ---------- */
   var top = document.getElementById('top');
@@ -883,7 +929,6 @@
     });
   }
   /* the stock-photo band loops: a second copy of the photos follows the first */
-  var track = document.getElementById('track'); track.innerHTML += track.innerHTML;
   /* reveal: a plain scroll check, so nothing can stay hidden */
   var rvs = [].slice.call(document.querySelectorAll('.rv'));
   html.classList.add('js');
