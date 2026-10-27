@@ -20,4 +20,4 @@ work. Swap them for her own photos as soon as parents say yes to faces being sho
 | mood-bolas.jpg | Child chasing soap bubbles in a garden | Ben Griffiths | https://unsplash.com/photos/j00rZzJcuAU |
 | mood-adultos.jpg | Adults in party hats around a cake | Vitaly Gariev | https://unsplash.com/photos/E1qHLWspl-k |
 
-Coming: Bridget's photo of Marina with Anya, to replace one of these.
+Coming: Brigitte's photo of Marina with Anya, to replace one of these.
