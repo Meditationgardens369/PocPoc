@@ -134,18 +134,18 @@
   .why-head { display: grid; grid-template-columns: 1fr 1fr; gap: 30px 60px; align-items: end; margin-bottom: 44px; }
   @media (max-width: 860px) { .why-head { grid-template-columns: 1fr; } }
   .pillars { display: grid; grid-template-columns: 1.15fr 1fr 1fr; gap: 20px; }
-  @media (max-width: 920px) { .pillars { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; gap: 14px; margin: 0 -24px; padding: 4px 24px 18px; scrollbar-width: none; } .pillars::-webkit-scrollbar { display: none; } .pillar { flex: none; width: min(330px, 82vw); scroll-snap-align: start; } }
-  .pillar { position: relative; border-radius: 30px; overflow: hidden; min-height: 460px; display: flex; flex-direction: column; justify-content: flex-end; color: #fff; box-shadow: var(--sh-s); transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)); transition: transform .4s var(--ease), box-shadow .4s; }
-  .pillar:hover { box-shadow: var(--sh-l); }
-  .pillar > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--ease); }
-  .pillar:hover > img { transform: scale(1.06); }
-  .pillar::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(63,37,25,0) 30%, rgba(63,37,25,.82) 100%); }
-  .pillar .in { position: relative; z-index: 1; padding: 26px; }
-  .pillar .tag { display: inline-block; font: 700 11.5px var(--head); letter-spacing: .16em; text-transform: uppercase; background: rgba(255,255,255,.2); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); padding: 6px 12px; border-radius: 999px; margin-bottom: 12px; }
-  .pillar h3 { font-size: clamp(24px, 2.4vw, 30px); line-height: 1.08; margin-bottom: 10px; }
-  .pillar p { margin: 0; font-size: 15.5px; line-height: 1.5; opacity: .94; }
-  @media (max-width: 920px) { .pillar { min-height: 380px; } }
-  html.js .pillar.rv.in { transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)); }
+  @media (max-width: 920px) { .pillars { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; gap: 14px; margin: 0 -24px; padding: 4px 24px 18px; scroll-padding-left: 24px; scrollbar-width: none; align-items: start; } .pillars::-webkit-scrollbar { display: none; } .pillar { flex: none; width: min(300px, 78vw); scroll-snap-align: start; } }
+  .pillar { display: block; border: 0; background: none; padding: 0; text-align: left; cursor: pointer; color: inherit; font: inherit; }
+  .pillar .pi { display: block; position: relative; border-radius: 30px; overflow: hidden; aspect-ratio: 4 / 5; box-shadow: var(--sh-s); transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)); transition: transform .4s var(--ease), box-shadow .4s; }
+  .pillar:hover .pi { box-shadow: var(--sh-l); }
+  .pillar .pi img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--ease); }
+  .pillar:hover .pi img { transform: scale(1.05); }
+  .pillar .pl { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 16px; }
+  .pillar .pl b { font: 600 clamp(21px, 2vw, 25px)/1.15 var(--head); }
+  .pillar .pl i { flex: none; width: 34px; height: 34px; border-radius: 50%; background: var(--pink-soft); color: var(--pink); display: grid; place-items: center; font: 600 22px/1 var(--head); font-style: normal; transition: transform .35s var(--ease), background .3s, color .3s; }
+  .pillar.open .pl i { transform: rotate(45deg); background: var(--pink); color: #fff; }
+  .pillar .more { display: block; max-height: 0; overflow: hidden; opacity: 0; color: var(--muted); font-size: 15.5px; line-height: 1.5; transition: max-height .45s var(--ease), opacity .35s, margin .35s; }
+  .pillar.open .more { max-height: 140px; opacity: 1; margin-top: 8px; }
 
   /* menus: her flyers, live */
   .menus { padding: 90px 0 100px; background: var(--paper); }
@@ -252,12 +252,12 @@
   @media (max-width: 600px) { .why, .menus, .voices { padding: 64px 0; } .why { border-radius: 32px 32px 0 0; } .hero { padding-bottom: 44px; } .band { padding-bottom: 44px; } .gallery { padding-bottom: 64px; } .why-head { margin-bottom: 26px; } }
   .vid { position: relative; border-radius: 30px; overflow: hidden; min-height: 420px; color: #fff; display: flex; align-items: flex-end; box-shadow: var(--sh-l); }
   .vid img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-  .vid::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(63,37,25,.05), rgba(63,37,25,.78)); }
+  .vid::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(63,37,25,0) 50%, rgba(63,37,25,.45)); }
   .vid .in { position: relative; z-index: 1; padding: 26px; }
   .play { width: 74px; height: 74px; border-radius: 50%; background: rgba(255,255,255,.92); display: grid; place-items: center; margin-bottom: 16px; box-shadow: 0 0 0 10px rgba(255,255,255,.18); animation: pulse 2.6s ease-in-out infinite; }
   .play::after { content: ""; border: 13px solid transparent; border-left: 20px solid var(--pink); border-right: 0; margin-left: 6px; }
   @keyframes pulse { 50% { box-shadow: 0 0 0 18px rgba(255,255,255,.08); } }
-  .vid b { display: block; font: 600 24px var(--head); }
+  .vid .soon { display: inline-block; font-size: 12px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; background: rgba(255,255,255,.22); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); padding: 6px 12px; border-radius: 999px; opacity: 1; }
   .vid small { opacity: .8; font-weight: 700; }
   .says { display: grid; gap: 16px; }
   .say { position: relative; background: var(--paper); border-radius: 26px; padding: 26px 28px; box-shadow: var(--sh-s); }
@@ -279,13 +279,14 @@
   .gal-nav { display: flex; gap: 8px; }
   .gal-nav button { width: 48px; height: 48px; border-radius: 50%; border: 0; background: var(--paper); box-shadow: var(--sh-s); cursor: pointer; font: 700 20px var(--head); color: var(--ink); transition: transform .2s; }
   .gal-nav button:hover { transform: scale(1.06); }
-  .rail { display: flex; gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 6px 24px 20px; margin: 0 -24px; scrollbar-width: none; cursor: grab; }
+  .rail { display: flex; gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 6px 24px 20px; margin: 0 -24px; scroll-padding-left: 24px; scrollbar-width: none; cursor: grab; }
   .rail::-webkit-scrollbar { display: none; }
   .rail figure { margin: 0; flex: none; width: min(320px, 74vw); scroll-snap-align: start; position: relative; border-radius: 26px; overflow: hidden; aspect-ratio: 4 / 5; box-shadow: var(--sh-s); cursor: zoom-in; }
   .rail figure.w { width: min(440px, 86vw); }
   .rail img { width: 100%; height: 100%; object-fit: cover; transition: transform 1s var(--ease); pointer-events: none; }
   .rail figure:hover img { transform: scale(1.05); }
-  .rail figcaption { position: absolute; left: 0; right: 0; bottom: 0; padding: 40px 18px 16px; color: #fff; font-weight: 800; font-size: 14.5px; background: linear-gradient(180deg, transparent, rgba(63,37,25,.72)); }
+  .lb figure { margin: 0; text-align: center; }
+  .lb figcaption { color: #fff; font: 600 18px var(--head); margin-top: 14px; }
 
   /* close */
   .close { padding: 0 0 80px; }
@@ -346,13 +347,12 @@
       <div>
         <span class="kicker"><span class="pt">Festas, catering e decoração · Algarve</span><span class="en">Parties, catering and decoration · Algarve</span></span>
         <h1><span class="pt">A festa que imaginas, <em>feita à tua medida.</em></span><span class="en">The party you picture, <em>made to measure.</em></span></h1>
-        <p class="sub"><span class="pt">Comida caseira, o cenário e a diversão, montados onde quiseres. E estamos lá durante a festa, a servir e a cuidar dos teus convidados, para tu a aproveitares.</span><span class="en">Homemade food, the backdrop and the fun, set up wherever you like. And we are there during the party, serving and looking after your guests, so you get to enjoy it.</span></p>
+        <p class="sub"><span class="pt">Comida caseira, cenário e diversão. Nós tratamos de tudo.</span><span class="en">Homemade food, the backdrop and the fun. We take care of it all.</span></p>
         <div class="hero-cta">
           <a class="btn primary big" href="monta.html"><span class="pt">Monta a tua festa</span><span class="en">Build your party</span><span class="arr">→</span></a>
-          <small><span class="pt">Vês o preço em 2 minutos.<br>Orçamento no mesmo dia.</span><span class="en">See the price in 2 minutes.<br>A quote the same day.</span></small>
+          <small><span class="pt">Vês o preço em 2 minutos</span><span class="en">See the price in 2 minutes</span></small>
         </div>
         <div class="occ">
-          <p><span class="pt">Ou começa pela tua festa</span><span class="en">Or start from your party</span></p>
           <div>
             <a href="monta.html?f=kids"><img src="photos/th-castle.jpg" alt=""><span class="pt">Crianças</span><span class="en">Kids</span></a>
             <a href="monta.html?f=baby"><img src="photos/t-batizado.jpg" alt=""><span class="pt">Batizado</span><span class="en">Christening</span></a>
@@ -368,49 +368,38 @@
           <img src="photos/t-minnie.jpg" alt="Mesa de festa com waffles, mini pizzas e salgados">
           <img src="photos/t-kpop.jpg" alt="Cenário K-Pop com painéis e figuras">
           <img src="photos/t-candyfloss.jpg" alt="A Marina a fazer algodão doce para uma menina">
-          <span class="cap" id="frameCap"></span>
           <span class="dots" id="dots"></span>
         </div>
-        <div class="float f1"><img src="photos/marina-fabio.jpg" alt=""><div><b><span class="pt">Marina e Fábio</span><span class="en">Marina and Fábio</span></b><span><span class="pt">Cozinham, montam e estão na festa a servir.</span><span class="en">They cook, set up and are there at the party, serving.</span></span></div></div>
-        <div class="float f2"><b>2</b><span><span class="pt">monitores<br>em cada festa</span><span class="en">animators<br>at every party</span></span></div>
+        <div class="float f1"><img src="photos/marina-fabio.jpg" alt=""><b><span class="pt">Marina e Fábio</span><span class="en">Marina and Fábio</span></b></div>
       </div>
     </div>
   </div>
 </section>
 
 <section class="band">
-  <div class="wrap band-head rv">
-    <h2><span class="pt">Duas horas de que eles <em>vão falar o ano inteiro.</em></span><span class="en">Two hours they <em>will talk about all year.</em></span></h2>
-    <small><span class="pt">Fotografias ilustrativas. As festas da Marina estão mais abaixo.</span><span class="en">Illustrative photos. Marina's own parties are further down.</span></small>
-  </div>
+  <div class="wrap band-head rv"><small><span class="pt">Fotografias ilustrativas</span><span class="en">Illustrative photos</span></small></div>
   <div class="marquee" aria-hidden="true">
     <div class="track" id="track">
-      <figure><img src="photos/mood-mae.jpg" alt="" loading="lazy"><figcaption><span class="pt">O abraço no fim</span><span class="en">The hug at the end</span></figcaption></figure>
-      <figure><img src="photos/mood-velas.jpg" alt="" loading="lazy" style="object-position:50% 30%"><figcaption><span class="pt">As velas</span><span class="en">The candles</span></figcaption></figure>
-      <figure><img src="photos/mood-chapeus.jpg" alt="" loading="lazy"><figcaption><span class="pt">Melhores amigas</span><span class="en">Best friends</span></figcaption></figure>
-      <figure><img src="photos/mood-riso.jpg" alt="" loading="lazy"><figcaption><span class="pt">O riso que não para</span><span class="en">The giggles that will not stop</span></figcaption></figure>
-      <figure><img src="photos/mood-roda.jpg" alt="" loading="lazy"><figcaption><span class="pt">A roda</span><span class="en">The circle game</span></figcaption></figure>
-      <figure><img src="photos/mood-familia.jpg" alt="" loading="lazy"><figcaption><span class="pt">A família toda</span><span class="en">The whole family</span></figcaption></figure>
-      <figure><img src="photos/mood-bebe-bolo.jpg" alt="" loading="lazy"><figcaption><span class="pt">O primeiro bolo</span><span class="en">The first cake</span></figcaption></figure>
-      <figure><img src="photos/mood-bolas.jpg" alt="" loading="lazy" style="object-position:50% 35%"><figcaption><span class="pt">Bolas de sabão</span><span class="en">Bubbles</span></figcaption></figure>
-      <figure><img src="photos/mood-adultos.jpg" alt="" loading="lazy"><figcaption><span class="pt">Também para os grandes</span><span class="en">For the grown-ups too</span></figcaption></figure>
+      <figure><img src="photos/mood-mae.jpg" alt="" loading="lazy"></figure>
+      <figure><img src="photos/mood-velas.jpg" alt="" loading="lazy" style="object-position:50% 30%"></figure>
+      <figure><img src="photos/mood-chapeus.jpg" alt="" loading="lazy"></figure>
+      <figure><img src="photos/mood-riso.jpg" alt="" loading="lazy"></figure>
+      <figure><img src="photos/mood-roda.jpg" alt="" loading="lazy"></figure>
+      <figure><img src="photos/mood-familia.jpg" alt="" loading="lazy"></figure>
+      <figure><img src="photos/mood-bebe-bolo.jpg" alt="" loading="lazy"></figure>
+      <figure><img src="photos/mood-bolas.jpg" alt="" loading="lazy" style="object-position:50% 35%"></figure>
+      <figure><img src="photos/mood-adultos.jpg" alt="" loading="lazy"></figure>
     </div>
   </div>
 </section>
 
 <section class="why" id="why">
   <div class="wrap">
-    <div class="why-head rv">
-      <div>
-        <span class="kicker"><span class="pt">Porquê a PocPoc</span><span class="en">Why PocPoc</span></span>
-        <h2 class="h2"><span class="pt">Não vendemos um menu. <em>Fazemos a tua festa.</em></span><span class="en">We don't sell a menu. <em>We make your party.</em></span></h2>
-      </div>
-      <p class="sub"><span class="pt">A PocPoc são duas pessoas, a Marina e o Fábio. Falas com quem cozinha, com quem monta e com quem lá está no dia.</span><span class="en">PocPoc is two people, Marina and Fábio. You talk to the people who cook, who set up, and who are there on the day.</span></p>
-    </div>
+    <h2 class="h2 rv" style="margin-bottom:36px"><span class="pt">Porquê a <em>PocPoc</em></span><span class="en">Why <em>PocPoc</em></span></h2>
     <div class="pillars">
-      <article class="pillar tilt rv"><img src="photos/t-kpop.jpg" alt="" loading="lazy"><div class="in"><span class="tag"><span class="pt">À tua medida</span><span class="en">Made to measure</span></span><h3><span class="pt">O teu tema, os teus convidados, as tuas regras.</span><span class="en">Your theme, your guests, your rules.</span></h3><p><span class="pt">Os menus são um ponto de partida, não uma lista fechada. Sem glúten, vegetariano, mais doce, mais salgado, um tema que ninguém fez: conta-nos e adaptamos tudo à tua festa.</span><span class="en">The menus are a starting point, not a fixed list. Gluten free, vegetarian, sweeter, more savoury, a theme nobody has done: tell us and we shape everything around your party.</span></p></div></article>
-      <article class="pillar tilt rv"><img src="photos/marina-fabio.jpg" alt="" loading="lazy" style="object-position:50% 40%"><div class="in"><span class="tag"><span class="pt">Connosco na festa</span><span class="en">With you at the party</span></span><h3><span class="pt">Os teus convidados, bem recebidos.</span><span class="en">Your guests, warmly looked after.</span></h3><p><span class="pt">Estamos lá durante a festa, a servir. A mesa sempre bonita e cheia, ninguém de copo vazio, e alguém atento às crianças. Tu só tens de estar com quem gostas.</span><span class="en">We are there during the party, serving. The table always full and beautiful, nobody with an empty glass, and someone keeping an eye on the children. You just get to be with the people you love.</span></p></div></article>
-      <article class="pillar tilt rv"><img src="photos/t-minnie.jpg" alt="" loading="lazy"><div class="in"><span class="tag"><span class="pt">Feito nessa manhã</span><span class="en">Made that morning</span></span><h3><span class="pt">Caseiro, fresco e bonito.</span><span class="en">Homemade, fresh and beautiful.</span></h3><p><span class="pt">Tudo feito à mão no próprio dia, com carinho e bons ingredientes, e apresentado ao tema da festa.</span><span class="en">Everything made by hand on the day, with care and good ingredients, and presented to the theme of the party.</span></p></div></article>
+      <button type="button" class="pillar rv"><span class="pi tilt"><img src="photos/t-kpop.jpg" alt="" loading="lazy"></span><span class="pl"><b><span class="pt">À tua medida</span><span class="en">Made to measure</span></b><i>+</i></span><span class="more"><span class="pt">Os menus são só o ponto de partida. Adaptamos tudo à tua festa.</span><span class="en">The menus are only a starting point. We shape everything around your party.</span></span></button>
+      <button type="button" class="pillar rv"><span class="pi tilt"><img src="photos/marina-fabio.jpg" alt="" loading="lazy" style="object-position:50% 40%"></span><span class="pl"><b><span class="pt">Connosco na festa</span><span class="en">With you at the party</span></b><i>+</i></span><span class="more"><span class="pt">Estamos lá a servir e a cuidar dos teus convidados. Ninguém de copo vazio.</span><span class="en">We are there serving and looking after your guests. Nobody with an empty glass.</span></span></button>
+      <button type="button" class="pillar rv"><span class="pi tilt"><img src="photos/t-minnie.jpg" alt="" loading="lazy"></span><span class="pl"><b><span class="pt">Feito nessa manhã</span><span class="en">Made that morning</span></b><i>+</i></span><span class="more"><span class="pt">Caseiro, fresco e apresentado ao tema da festa.</span><span class="en">Homemade, fresh and presented to the theme of the party.</span></span></button>
     </div>
   </div>
 </section>
@@ -419,7 +408,6 @@
   <div class="wrap">
     <div class="menus-head rv">
       <div>
-        <span class="kicker plum"><span class="pt">Menus e preços</span><span class="en">Menus and prices</span></span>
         <h2 class="h2"><span class="pt">Monta aqui. <em>Vê o preço na hora.</em></span><span class="en">Build it here. <em>See the price right away.</em></span></h2>
       </div>
       <div class="tabs" role="tablist">
@@ -449,7 +437,7 @@
                 <button type="button" class="xbtn" data-fx="burgers"><span class="pt">Mini hambúrgueres</span><span class="en">Mini burgers</span><em><span class="pt">3,50€/pessoa</span><span class="en">€3.50/person</span></em></button>
                 <button type="button" class="xbtn" data-fx="cupcakes"><span class="pt">Cupcakes do tema</span><span class="en">Themed cupcakes</span><em><span class="pt">4,50€/pessoa</span><span class="en">€4.50/person</span></em></button>
               </div>
-              <p class="flex-note"><span class="pt">É um ponto de partida. Trocamos o que quiseres: sem glúten, sem lactose, vegetariano, mais fruta. Diz-nos no pedido e a Marina adapta.</span><span class="en">It is a starting point. We swap whatever you like: gluten free, lactose free, vegetarian, more fruit. Tell us in your request and Marina adapts it.</span></p>
+              <p class="flex-note"><span class="pt">É um ponto de partida. Adaptamos tudo a ti.</span><span class="en">A starting point. We adapt it all to you.</span></p>
             </div>
             <div class="menu-pic"><img id="menuImg" src="photos/t-minnie.jpg" alt=""><div class="price"><b id="menuPrice">250€</b><span id="menuPpl"></span></div></div>
           </div>
@@ -463,8 +451,7 @@
               <img src="photos/th-deco3.jpg" alt="">
             </div>
             <div>
-              <h3 style="font-size:28px"><span class="pt">Da ideia à realidade, <em>no tema que escolheres.</em></span><span class="en">From the idea to the real thing, <em>in the theme you choose.</em></span></h3>
-              <p class="sub" style="font-size:15.5px;margin-top:8px"><span class="pt">Arrasta para ver o que cada cenário leva.</span><span class="en">Drag to see what each backdrop includes.</span></p>
+              <h3 style="font-size:28px"><span class="pt">No tema <em>que escolheres.</em></span><span class="en">In the theme <em>you choose.</em></span></h3>
               <input class="tier" id="tier" type="range" min="0" max="2" step="1" value="0" aria-label="Decoração">
               <div class="tier-lbl"><span data-t="0" class="on"><span class="pt">Simples</span><span class="en">Simple</span></span><span data-t="1"><span class="pt">Média</span><span class="en">Medium</span></span><span data-t="2"><span class="pt">Completa</span><span class="en">Complete</span></span></div>
               <ul class="checks" id="checks"></ul>
@@ -476,7 +463,7 @@
 
         <div class="pane" data-pane="fun">
           <div class="fun" id="fun"></div>
-          <p class="fun-note"><span class="pt">Pipocas e algodão doce vêm sempre com uma pessoa e todo o material, 2 horas e mais 1 de oferta. A foto dos jogos é ilustrativa.</span><span class="en">Popcorn and candy floss always come with a person and all the material, 2 hours plus 1 on the house. The games photo is illustrative.</span></p>
+          <p class="fun-note"><span class="pt">Máquinas com uma pessoa, 2 h + 1 h de oferta. Foto dos jogos ilustrativa.</span><span class="en">Machines come with a person, 2 h + 1 h free. Games photo illustrative.</span></p>
         </div>
 
       </div>
@@ -504,13 +491,9 @@
 
 <section class="voices" id="voices">
   <div class="wrap">
-    <div class="rv">
-      <span class="kicker lion"><span class="pt">O que dizem</span><span class="en">What people say</span></span>
-      <h2 class="h2"><span class="pt">Os pais descansam. <em>As crianças não querem ir embora.</em></span><span class="en">Parents relax. <em>Children don't want to leave.</em></span></h2>
-      <p class="sub"><span class="pt">As avaliações no Google chegam assim que o perfil abrir. Até lá, os exemplos estão marcados.</span><span class="en">Google reviews arrive as soon as the profile opens. Until then, the examples are marked.</span></p>
-    </div>
+    <h2 class="h2 rv"><span class="pt">O que dizem <em>os pais.</em></span><span class="en">What parents <em>say.</em></span></h2>
     <div class="voices-grid">
-      <div class="vid rv"><img src="photos/t-anya.jpg" alt="" loading="lazy"><div class="in"><div class="play"></div><b><span class="pt">A mãe da Anya conta como foi</span><span class="en">Anya's mum on how it went</span></b><small><span class="pt">Vídeo de 30 segundos, em breve</span><span class="en">A 30 second video, coming soon</span></small></div></div>
+      <div class="vid rv"><img src="photos/t-anya.jpg" alt="" loading="lazy"><div class="in"><div class="play"></div><small class="soon"><span class="pt">Vídeo em breve</span><span class="en">Video coming soon</span></small></div></div>
       <div class="says">
         <div class="say rv"><span class="ex"><span class="pt">exemplo</span><span class="en">example</span></span><div class="stars">★★★★★</div><p><span class="pt">"Eu não entrei na cozinha o dia todo. A Marina e o Fábio trataram de tudo, e os avós ainda falam da comida."</span><span class="en">"I did not set foot in the kitchen all day. Marina and Fábio handled everything, and the grandparents still talk about the food."</span></p><div class="who"><span class="pt">Uma mãe, festa de 6 anos, Lagos</span><span class="en">A mum, 6th birthday, Lagos</span></div></div>
         <div class="say kid rv"><span class="ex"><span class="pt">exemplo</span><span class="en">example</span></span><div class="stars">★★★★★</div><p><span class="pt">"Podemos fazer outra festa amanhã?"</span><span class="en">"Can we have another party tomorrow?"</span></p><div class="who"><span class="pt">O aniversariante, 5 anos</span><span class="en">The birthday boy, aged 5</span></div></div>
@@ -523,25 +506,22 @@
 <section class="gallery">
   <div class="wrap">
     <div class="gal-head rv">
-      <div>
-        <span class="kicker"><span class="pt">Festas que já fizemos</span><span class="en">Parties we have done</span></span>
-        <h2 class="h2"><span class="pt">De todos os tamanhos, <em>de todos os temas.</em></span><span class="en">Every size, <em>every theme.</em></span></h2>
-      </div>
+      <h2 class="h2"><span class="pt">Festas <em>que já fizemos.</em></span><span class="en">Parties <em>we have done.</em></span></h2>
       <div class="gal-nav"><button type="button" id="galPrev" aria-label="Anterior">←</button><button type="button" id="galNext" aria-label="Seguinte">→</button></div>
     </div>
     <div class="rail" id="rail">
-      <figure class="w"><img src="photos/hero.jpg" alt="" loading="lazy"><figcaption><span class="pt">Festa Bluey, 5 anos</span><span class="en">Bluey party, age 5</span></figcaption></figure>
-      <figure><img src="photos/t-minnie.jpg" alt="" loading="lazy"><figcaption><span class="pt">Mesa Minnie, Menu Clássico</span><span class="en">Minnie table, Classic menu</span></figcaption></figure>
-      <figure><img src="photos/t-kpop.jpg" alt="" loading="lazy"><figcaption><span class="pt">Decoração Completa, K-Pop</span><span class="en">Complete decoration, K-Pop</span></figcaption></figure>
-      <figure><img src="photos/t-burgers.jpg" alt="" loading="lazy"><figcaption><span class="pt">Mini hambúrgueres, Menu Premium</span><span class="en">Mini burgers, Premium menu</span></figcaption></figure>
-      <figure><img src="photos/t-batizado.jpg" alt="" loading="lazy"><figcaption><span class="pt">Batizado</span><span class="en">Christening</span></figcaption></figure>
-      <figure><img src="photos/t-candyfloss.jpg" alt="" loading="lazy"><figcaption><span class="pt">Algodão doce na hora</span><span class="en">Candy floss made on the spot</span></figcaption></figure>
-      <figure><img src="photos/t-bossbaby.jpg" alt="" loading="lazy"><figcaption><span class="pt">Decoração Completa, Boss Baby</span><span class="en">Complete decoration, Boss Baby</span></figcaption></figure>
-      <figure class="w"><img src="photos/t-anya.jpg" alt="" loading="lazy"><figcaption><span class="pt">A festa da Anya, mesa saudável</span><span class="en">Anya's party, the healthy table</span></figcaption></figure>
-      <figure><img src="photos/t-wedding.jpg" alt="" loading="lazy"><figcaption><span class="pt">Casamento</span><span class="en">Wedding</span></figcaption></figure>
-      <figure><img src="photos/t-hello40.jpg" alt="" loading="lazy"><figcaption><span class="pt">Festa de adultos</span><span class="en">Adult birthday</span></figcaption></figure>
-      <figure><img src="photos/t-babyshower.jpg" alt="" loading="lazy"><figcaption><span class="pt">Chá de bebé</span><span class="en">Baby shower</span></figcaption></figure>
-      <figure><img src="photos/t-castle.jpg" alt="" loading="lazy"><figcaption><span class="pt">Insuflável Castelo</span><span class="en">The castle</span></figcaption></figure>
+      <figure class="w"><img src="photos/hero.jpg" alt="" loading="lazy"><figcaption hidden data-pt="Festa Bluey, 5 anos" data-en="Bluey party, age 5"></figcaption></figure>
+      <figure><img src="photos/t-minnie.jpg" alt="" loading="lazy"><figcaption hidden data-pt="Mesa Minnie, Menu Clássico" data-en="Minnie table, Classic menu"></figcaption></figure>
+      <figure><img src="photos/t-kpop.jpg" alt="" loading="lazy"><figcaption hidden data-pt="Decoração Completa, K-Pop" data-en="Complete decoration, K-Pop"></figcaption></figure>
+      <figure><img src="photos/t-burgers.jpg" alt="" loading="lazy"><figcaption hidden data-pt="Mini hambúrgueres, Menu Premium" data-en="Mini burgers, Premium menu"></figcaption></figure>
+      <figure><img src="photos/t-batizado.jpg" alt="" loading="lazy"><figcaption hidden data-pt="Batizado" data-en="Christening"></figcaption></figure>
+      <figure><img src="photos/t-candyfloss.jpg" alt="" loading="lazy"><figcaption hidden data-pt="Algodão doce na hora" data-en="Candy floss made on the spot"></figcaption></figure>
+      <figure><img src="photos/t-bossbaby.jpg" alt="" loading="lazy"><figcaption hidden data-pt="Decoração Completa, Boss Baby" data-en="Complete decoration, Boss Baby"></figcaption></figure>
+      <figure class="w"><img src="photos/t-anya.jpg" alt="" loading="lazy"><figcaption hidden data-pt="A festa da Anya, mesa saudável" data-en="Anya's party, the healthy table"></figcaption></figure>
+      <figure><img src="photos/t-wedding.jpg" alt="" loading="lazy"><figcaption hidden data-pt="Casamento" data-en="Wedding"></figcaption></figure>
+      <figure><img src="photos/t-hello40.jpg" alt="" loading="lazy"><figcaption hidden data-pt="Festa de adultos" data-en="Adult birthday"></figcaption></figure>
+      <figure><img src="photos/t-babyshower.jpg" alt="" loading="lazy"><figcaption hidden data-pt="Chá de bebé" data-en="Baby shower"></figcaption></figure>
+      <figure><img src="photos/t-castle.jpg" alt="" loading="lazy"><figcaption hidden data-pt="Insuflável Castelo" data-en="The castle"></figcaption></figure>
     </div>
   </div>
 </section>
@@ -550,8 +530,8 @@
   <div class="wrap">
     <div class="close-card rv">
       <div class="in">
-        <h2><span class="pt">A tua festa começa <em>com dois minutos.</em></span><span class="en">Your party starts <em>with two minutes.</em></span></h2>
-        <p><span class="pt">Escolhe o dia, a comida, o cenário e a diversão. A Marina responde no mesmo dia com o orçamento, feito à tua medida.</span><span class="en">Pick the day, the food, the backdrop and the fun. Marina replies the same day with a quote, made to measure.</span></p>
+        <h2><span class="pt">A tua festa <em>começa aqui.</em></span><span class="en">Your party <em>starts here.</em></span></h2>
+        <p><span class="pt">Orçamento no mesmo dia.</span><span class="en">A quote the same day.</span></p>
         <a class="btn big" href="monta.html"><span class="pt">Monta a tua festa</span><span class="en">Build your party</span><span class="arr">→</span></a>
         <small><span class="pt">Ou escreve-nos: pocpocalgarve23@gmail.com</span><span class="en">Or write to us: pocpocalgarve23@gmail.com</span></small>
       </div>
@@ -572,7 +552,7 @@
     </div>
   </div>
 </footer>
-<div class="lb" id="lb"><img src="" alt=""></div>
+<div class="lb" id="lb"><figure><img src="" alt=""><figcaption></figcaption></figure></div>
 
 <script>
 (function () {
@@ -683,7 +663,7 @@
   var CAPS = [['Festa Bluey, 5 anos', 'Bluey party, age 5'], ['Menu Clássico ao tema', 'Classic menu, to the theme'], ['Decoração Completa, K-Pop', 'Complete decoration, K-Pop'], ['Algodão doce feito na hora', 'Candy floss made on the spot']];
   var dots = document.getElementById('dots');
   frames.forEach(function () { dots.appendChild(document.createElement('i')); });
-  function caption() { document.getElementById('frameCap').textContent = L(CAPS[fi][0], CAPS[fi][1]); [].forEach.call(dots.children, function (d, i) { d.classList.toggle('on', i === fi); }); }
+  function caption() { [].forEach.call(dots.children, function (d, i) { d.classList.toggle('on', i === fi); }); }
   function nextFrame() { frames[fi].classList.remove('on'); fi = (fi + 1) % frames.length; void frames[fi].offsetWidth; frames[fi].classList.add('on'); caption(); }
   if (!window.matchMedia || !matchMedia('(prefers-reduced-motion: reduce)').matches) { setInterval(nextFrame, 5200); }
 
@@ -788,6 +768,9 @@
   }); });
   function renderAll() { renderFood(); renderDeco(); renderFun(); renderCart(); }
 
+  /* why us: tap a photo to read its one line */
+  document.querySelectorAll('.pillar').forEach(function (b) { b.addEventListener('click', function () { b.classList.toggle('open'); }); });
+
   /* tabs */
   document.querySelectorAll('.tabs button').forEach(function (b) { b.addEventListener('click', function () {
     var k = b.getAttribute('data-tab');
@@ -800,10 +783,8 @@
   function renderQuotes() {
     var box = document.getElementById('quotes'); if (!box) { return; }
     box.innerHTML = '';
-    if (!TESTIMONIALS.length) {
-      for (var i = 0; i < 3; i++) { var e = document.createElement('div'); e.className = 'q empty'; e.innerHTML = '<p>' + L('As palavras de um convidado de uma festa da PocPoc, assim que chegarem.', 'A guest’s words from a PocPoc party, as soon as they come in.') + '</p>'; box.appendChild(e); }
-      return;
-    }
+    box.hidden = !TESTIMONIALS.length;   // no empty placeholders: the row appears with the first real words
+    if (!TESTIMONIALS.length) { return; }
     TESTIMONIALS.slice(0, 6).forEach(function (t) {
       var q = document.createElement('div'); q.className = 'q';
       q.innerHTML = '<p>' + esc(t.text) + '</p><div class="who">' + (t.name ? esc(t.name) + ', ' : '') + L('convidado no Algarve', 'a guest in the Algarve') + '</div>';
@@ -823,8 +804,8 @@
 
   /* ---------- Lightbox: gallery photos and the original flyers ---------- */
   var lb = document.getElementById('lb');
-  function openLb(src) { lb.querySelector('img').src = src; lb.classList.add('on'); }
-  rail.addEventListener('click', function (e) { var f = e.target.closest('figure'); if (f && !moved) { openLb(f.querySelector('img').getAttribute('src')); } });
+  function openLb(src, cap) { lb.querySelector('img').src = src; lb.querySelector('figcaption').textContent = cap || ''; lb.classList.add('on'); }
+  rail.addEventListener('click', function (e) { var f = e.target.closest('figure'); if (f && !moved) { var c = f.querySelector('figcaption'); openLb(f.querySelector('img').getAttribute('src'), c ? c.getAttribute('data-' + (html.getAttribute('data-lang') === 'en' ? 'en' : 'pt')) : ''); } });
   document.querySelectorAll('[data-lb]').forEach(function (a) { a.addEventListener('click', function (e) { e.preventDefault(); openLb(a.getAttribute('href')); }); });
   lb.addEventListener('click', function () { lb.classList.remove('on'); });
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape') { lb.classList.remove('on'); } });
