@@ -284,6 +284,32 @@
   .wave { display: block; width: 100%; height: 26px; }
 
   @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .btn { transition: none; } }
+
+  /* Feeling: happy children and parents before any feature. Illustrative Unsplash photos,
+     labelled as such, kept apart from her own "parties we have done" gallery. CREDITS in photos/. */
+  .feel { position: relative; padding: 56px 0 40px; }
+  .feel .mosaic { display: grid; grid-template-columns: repeat(4, 1fr); grid-auto-rows: 180px; gap: 14px; grid-auto-flow: dense; margin-top: 26px; }
+  .feel figure { position: relative; margin: 0; border-radius: 22px; overflow: hidden; border: 4px solid #fff; background: var(--rose);
+    box-shadow: 0 18px 36px rgba(74,44,31,.14), 0 2px 6px rgba(74,44,31,.06); transition: transform .35s ease, box-shadow .35s ease; }
+  .feel figure:nth-child(odd) { transform: rotate(-.6deg); }
+  .feel figure:nth-child(even) { transform: rotate(.5deg); }
+  .feel figure:hover { transform: translateY(-5px) rotate(0); box-shadow: 0 30px 50px rgba(74,44,31,.2); z-index: 2; }
+  .feel img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 1.2s ease; }
+  .feel figure:hover img { transform: scale(1.06); }
+  .feel figcaption { position: absolute; left: 10px; bottom: 10px; font: 600 13.5px Fredoka, Nunito, sans-serif; color: #fff;
+    background: rgba(74,44,31,.55); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); padding: 5px 11px; border-radius: 999px; }
+  .feel .w2 { grid-column: span 2; } .feel .h2 { grid-row: span 2; }
+  .feel .say { display: flex; align-items: center; justify-content: center; text-align: center; padding: 18px;
+    background: linear-gradient(135deg, var(--pink), var(--plum)); color: #fff; font: 600 clamp(19px, 2.4vw, 25px)/1.2 Fredoka, Nunito, sans-serif; }
+  .feel .note { margin-top: 16px; font-size: 12.5px; color: var(--faint); }
+  .feel .note a { color: inherit; }
+  @media (max-width: 760px) {
+    .feel .mosaic { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 150px; gap: 10px; }
+    .feel .say { grid-column: span 2; min-height: 120px; }
+  }
+  html.js .feel figure.rv { opacity: 0; translate: 0 26px; transition: opacity .7s ease, translate .7s ease, transform .35s ease, box-shadow .35s ease; }
+  html.js .feel figure.rv.in { opacity: 1; translate: 0 0; }
+  @media (prefers-reduced-motion: reduce) { html.js .feel figure.rv { opacity: 1; translate: none; } .feel img { transition: none; } }
 </style>
 </head>
 <body>
@@ -338,6 +364,27 @@
     </div>
   </div>
 
+</section>
+
+<section class="feel" id="feel">
+  <div class="wrap">
+    <span class="eyebrow pink"><span class="pt">Porque é que se faz uma festa</span><span class="en">Why you throw a party</span></span>
+    <h2><span class="pt">Duas horas de que eles <em>vão falar o ano inteiro.</em></span><span class="en">Two hours they <em>will talk about all year.</em></span></h2>
+    <p class="lede"><span class="pt">Tu queres ver a cara deles quando as velas acendem. A Marina e o Fábio tratam do resto, para estares lá a ver.</span><span class="en">You want to see their faces when the candles light up. Marina and Fábio handle the rest, so you are there to see it.</span></p>
+    <div class="mosaic">
+      <figure class="rv w2 h2"><img src="photos/mood-mae.jpg" alt="Uma menina dá um beijo no nariz da mãe, as duas a rir" loading="lazy"><figcaption><span class="pt">O abraço no fim</span><span class="en">The hug at the end</span></figcaption></figure>
+      <figure class="rv h2"><img src="photos/mood-velas.jpg" alt="Três crianças a soprar as velas de um bolo" loading="lazy" style="object-position:50% 30%"><figcaption><span class="pt">As velas</span><span class="en">The candles</span></figcaption></figure>
+      <figure class="rv"><img src="photos/mood-chapeus.jpg" alt="Duas meninas com chapéus de festa a rir" loading="lazy"><figcaption><span class="pt">Melhores amigas</span><span class="en">Best friends</span></figcaption></figure>
+      <figure class="rv"><img src="photos/mood-riso.jpg" alt="Um menino e uma menina a rir juntos" loading="lazy"><figcaption><span class="pt">O riso que não para</span><span class="en">The giggles that will not stop</span></figcaption></figure>
+      <figure class="rv w2"><img src="photos/mood-roda.jpg" alt="Crianças de mãos dadas a brincar à roda na relva" loading="lazy" style="object-position:50% 40%"><figcaption><span class="pt">A roda</span><span class="en">The circle game</span></figcaption></figure>
+      <figure class="rv"><img src="photos/mood-familia.jpg" alt="Uma família com línguas da sogra e confetes" loading="lazy"><figcaption><span class="pt">A família toda</span><span class="en">The whole family</span></figcaption></figure>
+      <figure class="rv"><img src="photos/mood-bebe-bolo.jpg" alt="Uma criança pequena a soprar as velas do bolo" loading="lazy"><figcaption><span class="pt">O primeiro bolo</span><span class="en">The first cake</span></figcaption></figure>
+      <figure class="rv"><img src="photos/mood-bolas.jpg" alt="Uma criança a correr atrás de bolas de sabão no jardim" loading="lazy" style="object-position:50% 35%"><figcaption><span class="pt">Bolas de sabão</span><span class="en">Bubbles</span></figcaption></figure>
+      <figure class="rv w2"><img src="photos/mood-adultos.jpg" alt="Adultos com chapéus de festa à volta de um bolo com velas" loading="lazy"><figcaption><span class="pt">Também para os grandes</span><span class="en">For the grown-ups too</span></figcaption></figure>
+      <figure class="rv say"><span><span class="pt">Tu estás na foto, não na cozinha.</span><span class="en">You are in the photo, not in the kitchen.</span></span></figure>
+    </div>
+    <p class="note"><span class="pt">Fotografias ilustrativas do Unsplash. As festas da Marina estão mais abaixo.</span><span class="en">Illustrative photos from Unsplash. Marina's own parties are further down.</span></p>
+  </div>
 </section>
 
 <section id="occ" style="padding-top:56px">
@@ -605,6 +652,18 @@
   lb.addEventListener('click', function () { lb.classList.remove('on'); });
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape') { lb.classList.remove('on'); } });
 
+})();
+</script>
+<script>
+/* Feeling mosaic: tiles rise in as they scroll into view. Without JS they simply show. */
+(function () {
+  var tiles = document.querySelectorAll('.feel figure.rv');
+  if (!('IntersectionObserver' in window) || !tiles.length) return;
+  document.documentElement.classList.add('js');
+  var io = new IntersectionObserver(function (es) {
+    es.forEach(function (e) { if (e.isIntersecting) { var i = [].indexOf.call(tiles, e.target); setTimeout(function () { e.target.classList.add('in'); }, (i % 4) * 90); io.unobserve(e.target); } });
+  }, { threshold: .15 });
+  tiles.forEach(function (t) { io.observe(t); });
 })();
 </script>
 </body>
