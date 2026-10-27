@@ -69,7 +69,7 @@
   .scene .arch i:nth-child(odd) { animation-delay: -1.3s; }
   @keyframes bob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
   .stage { position: absolute; inset: 0; }
-  .card { position: absolute; width: 38%; aspect-ratio: 1; border-radius: 16px; overflow: hidden; border: 4px solid #fff; box-shadow: 0 16px 30px rgba(74,44,31,.28); animation: drop .6s cubic-bezier(.2,1.3,.4,1) both; background: var(--rose); }
+  .card { position: absolute; width: 34%; aspect-ratio: 1; border-radius: 16px; overflow: hidden; border: 4px solid #fff; box-shadow: 0 16px 30px rgba(74,44,31,.28); animation: drop .6s cubic-bezier(.2,1.3,.4,1) both; background: var(--rose); }
   .card img { width: 100%; height: 100%; object-fit: cover; display: block; }
   .card b { position: absolute; left: 0; right: 0; bottom: 0; padding: 18px 8px 6px; font: 800 10px Nunito, sans-serif; letter-spacing: .06em; text-transform: uppercase; color: #fff; background: linear-gradient(180deg, transparent, rgba(74,44,31,.75)); text-align: center; }
   @keyframes drop { from { transform: translateY(-40px) scale(.6) rotate(var(--r, 0deg)); opacity: 0; } to { transform: rotate(var(--r, 0deg)); opacity: 1; } }
@@ -78,6 +78,7 @@
   .badge b { font: 700 20px/1 Fredoka, Nunito, sans-serif; color: var(--pink); }
   .badge.occ-badge { top: auto; bottom: 14px; left: 14px; background: var(--plum); color: #fff; }
   @keyframes pop { from { transform: translateY(30px) scale(.4) rotateX(40deg); opacity: 0; } to { transform: none; opacity: 1; } }
+  .more { position: absolute; right: 14px; bottom: 14px; z-index: 9; background: var(--pink); color: #fff; border-radius: 999px; padding: 7px 13px; font: 800 13px Nunito, sans-serif; box-shadow: 0 8px 20px rgba(233,75,154,.35); animation: drop .4s cubic-bezier(.2,1.3,.4,1) both; }
   .scene .hello { position: absolute; inset: 0; display: grid; place-items: center; text-align: center; padding: 20px; color: var(--muted); font: 600 15px Nunito, sans-serif; }
 
   /* Price */
@@ -244,8 +245,8 @@
           <label class="opt"><input type="checkbox" name="x" value="popcorn"><span class="ic"><img src="photos/th-popcorn.jpg" alt=""></span><span class="t"><b><span class="pt">Máquina de pipocas</span><span class="en">Popcorn machine</span></b><span><span class="pt">2 h + 1 de oferta</span><span class="en">2 h + 1 on the house</span></span></span><span class="p">100€</span></label>
           <label class="opt"><input type="checkbox" name="x" value="candy"><span class="ic"><img src="photos/th-candy.jpg" alt=""></span><span class="t"><b><span class="pt">Máquina de algodão doce</span><span class="en">Candy floss machine</span></b><span><span class="pt">As duas máquinas juntas: 150€</span><span class="en">Both machines together: €150</span></span></span><span class="p">100€</span></label>
           <label class="opt"><input type="checkbox" name="x" value="games"><span class="ic"><img src="photos/th-games.jpg" alt=""></span><span class="t"><b><span class="pt">Jogos tradicionais</span><span class="en">Traditional games</span></b><span><span class="pt">2 horas</span><span class="en">2 hours</span></span></span><span class="p">75€</span></label>
-          <label class="opt"><input type="checkbox" name="x" value="mascot"><span class="ic"><img src="photos/logo-from-instagram.png" alt=""></span><span class="t"><b><span class="pt">Mascote</span><span class="en">Mascot</span></b><span><span class="pt">Uma personagem à escolha</span><span class="en">A character of your choice</span></span></span><span class="p q"><span class="pt">orçamento</span><span class="en">quoted</span></span></label>
-          <label class="opt"><input type="checkbox" name="x" value="icecream"><span class="ic"><img src="photos/th-icecream.jpg" alt=""></span><span class="t"><b><span class="pt">Carrinho de gelados</span><span class="en">Ice cream cart</span></b><span><span class="pt">Gelados à vontade</span><span class="en">Ice cream for all</span></span></span><span class="p q"><span class="pt">orçamento</span><span class="en">quoted</span></span></label>
+          <label class="opt"><input type="checkbox" name="x" value="mascot"><span class="ic"><img src="photos/logo-from-instagram.png" alt=""></span><span class="t"><b><span class="pt">Mascote</span><span class="en">Mascot</span></b><span><span class="pt">Uma personagem à escolha</span><span class="en">A character of your choice</span></span></span><span class="p"><span class="pt">70 a 100€</span><span class="en">€70 to 100</span></span></label>
+          <label class="opt"><input type="checkbox" name="x" value="icecream"><span class="ic"><img src="photos/th-icecream.jpg" alt=""></span><span class="t"><b><span class="pt">Carrinho de gelados</span><span class="en">Ice cream cart</span></b><span><span class="pt">Gelados à vontade</span><span class="en">Ice cream for all</span></span></span><span class="p"><span class="pt">100 a 150€</span><span class="en">€100 to 150</span></span></label>
         </div>
         <div class="nav"><button class="btn ghost" type="button" data-prev><span class="pt">← Voltar</span><span class="en">← Back</span></button><button class="btn" type="button" data-next><span class="pt">Seguinte</span><span class="en">Next</span></button></div>
       </section>
@@ -314,7 +315,9 @@
   var DECO = { none: 0, simple: 200, medium: 250, full: 350 };
   var ANIM = { jungle: 85, castle: 110, faces: 80, popcorn: 100, candy: 100, games: 75 };
   var BOTH_MACHINES = 150;
-  var QUOTED = { mascot: true, icecream: true };
+  /* Not on her flyers. Adam's ranges, 27 Oct 2026, to confirm with Marina. The total counts the
+     low end and shows the high end as "up to". */
+  var RANGE = { mascot: [70, 100], icecream: [100, 150] };
   var PRESET = {
     kids:    { menu: 'classic', sizeIdx: 0, deco: 'simple', x: ['castle'] },
     baby:    { menu: 'classic', sizeIdx: 0, deco: 'medium', x: [] },
@@ -333,16 +336,18 @@
     hotdogs: { pt: 'Mini cachorros extra', en: 'Extra mini hot dogs' }, burgers: { pt: 'Mini hambúrgueres extra', en: 'Extra mini burgers' }, cupcakes: { pt: 'Cupcakes extra', en: 'Extra cupcakes' },
     deco_none: { pt: 'Sem decoração', en: 'No decoration' }, deco_simple: { pt: 'Decoração Simples', en: 'Simple decoration' }, deco_medium: { pt: 'Decoração Média', en: 'Medium decoration' }, deco_full: { pt: 'Decoração Completa', en: 'Complete decoration' },
     jungle: { pt: 'Insuflável Selva', en: 'Jungle castle' }, castle: { pt: 'Insuflável Castelo', en: 'Castle' }, faces: { pt: 'Pinturas faciais', en: 'Face painting' }, popcorn: { pt: 'Pipocas', en: 'Popcorn' }, candy: { pt: 'Algodão doce', en: 'Candy floss' }, both: { pt: 'Pipocas e algodão doce', en: 'Popcorn and candy floss' }, games: { pt: 'Jogos tradicionais', en: 'Traditional games' }, mascot: { pt: 'Mascote', en: 'Mascot' }, icecream: { pt: 'Carrinho de gelados', en: 'Ice cream cart' },
-    quoted: { pt: 'sob orçamento', en: 'quoted' }, people: { pt: 'pessoas', en: 'people' }, plus: { pt: '+ itens sob orçamento', en: '+ items to be quoted' },
+    quoted: { pt: 'sob orçamento', en: 'quoted' }, upto: { pt: 'até ', en: 'up to ' }, more: { pt: 'mais', en: 'more' }, people: { pt: 'pessoas', en: 'people' }, plus: { pt: '+ itens sob orçamento', en: '+ items to be quoted' },
     steps: { pt: ['A festa', 'A comida', 'O cenário', 'A diversão', 'Quando e onde', 'Para quem', 'Pronto'], en: ['The party', 'The food', 'The backdrop', 'The fun', 'When and where', 'Who', 'Done'] },
     stepOf: { pt: 'Passo {a} de {b}', en: 'Step {a} of {b}' }
   };
   function t(k) { return (T[k] || {})[html.getAttribute('data-lang')] || k; }
   function eur(n) { return (Math.round(n * 100) / 100).toLocaleString('pt-PT', { minimumFractionDigits: 0, maximumFractionDigits: 2 }); }
+  function rng(r) { return html.getAttribute('data-lang') === 'pt' ? r[0] + ' a ' + r[1] + '€' : '€' + r[0] + ' to ' + r[1]; }
+  function upto(c) { return c.max > c.total ? ' ' + t('upto') + eur(c.max) + '€' : ''; }
   function people() { var m = MENUS[state.menu]; return m.sizes.length ? m.sizes[state.sizeIdx][0] : 0; }
 
   function calc() {
-    var lines = [], total = 0, quoted = [];
+    var lines = [], total = 0, quoted = [], extraMax = 0;
     var m = MENUS[state.menu];
     if (m.sizes.length) {
       var sz = m.sizes[state.sizeIdx];
@@ -355,9 +360,9 @@
     if (x.indexOf('popcorn') !== -1 && x.indexOf('candy') !== -1) { total += BOTH_MACHINES; lines.push([t('both'), eur(BOTH_MACHINES) + '€']); x = x.filter(function (k) { return k !== 'popcorn' && k !== 'candy'; }); }
     x.forEach(function (k) {
       if (ANIM[k]) { total += ANIM[k]; lines.push([t(k), eur(ANIM[k]) + '€']); }
-      else if (QUOTED[k]) { quoted.push(k); lines.push([t(k), t('quoted')]); }
+      else if (RANGE[k]) { total += RANGE[k][0]; extraMax += RANGE[k][1] - RANGE[k][0]; lines.push([t(k), rng(RANGE[k])]); }
     });
-    return { total: total, lines: lines, quoted: quoted };
+    return { total: total, max: total + extraMax, lines: lines, quoted: quoted };
   }
 
   /* ---------- Steps ---------- */
@@ -410,15 +415,19 @@
   /* ---------- Scene: a photo collage that fills as the parent chooses ---------- */
   var PHOTO = { classic: 'th-classic.jpg', premium: 'th-premium.jpg', healthy: 'th-healthy.jpg', simple: 'th-deco1.jpg', medium: 'th-deco2.jpg', full: 'th-deco3.jpg',
                 jungle: 'th-jungle.jpg', castle: 'th-castle.jpg', faces: 'th-faces.jpg', popcorn: 'th-popcorn.jpg', candy: 'th-candy.jpg', games: 'th-games.jpg', mascot: 'logo-from-instagram.png', icecream: 'th-icecream.jpg' };
-  var SPOTS = [[6, 22, -6], [34, 12, 4], [60, 24, -3], [14, 52, 5], [42, 46, -4], [66, 54, 6], [26, 30, -2], [52, 36, 3]];
+  /* At most four cards in a fan, so it never turns into a pile. Menu and backdrop stay, the
+     newest extras take the last spots, the rest are counted in the "+N" pill. */
+  var SPOTS = [[3, 26, -6], [24, 14, 4], [45, 28, -3], [64, 16, 5]];
   var shown = {};
   function renderScene() {
     var stage = $('stage'); var want = [];
     if (state.menu !== 'none') { want.push({ key: 'menu', ph: PHOTO[state.menu], lbl: t(state.menu) }); }
     if (state.deco !== 'none') { want.push({ key: 'deco', ph: PHOTO[state.deco], lbl: t('deco_' + state.deco) }); }
-    state.x.forEach(function (k) { want.push({ key: k, ph: PHOTO[k], lbl: t(k) }); });
+    var extras = state.x.map(function (k) { return { key: k, ph: PHOTO[k], lbl: t(k) }; });
+    var room = SPOTS.length - want.length, hidden = Math.max(0, extras.length - room);
+    want = want.concat(extras.slice(hidden));
     stage.innerHTML = '';
-    want.slice(0, SPOTS.length).forEach(function (w, i) {
+    want.forEach(function (w, i) {
       var sp = SPOTS[i];
       var d = document.createElement('div'); d.className = 'card' + (shown[w.key] === w.ph ? ' still' : '');
       d.style.left = sp[0] + '%'; d.style.top = sp[1] + '%'; d.style.setProperty('--r', sp[2] + 'deg'); d.style.zIndex = String(i + 1);
@@ -426,6 +435,7 @@
       shown[w.key] = w.ph;
       stage.appendChild(d);
     });
+    if (hidden) { var m = document.createElement('div'); m.className = 'more'; m.textContent = '+' + hidden + ' ' + t('more'); stage.appendChild(m); }
     Object.keys(shown).forEach(function (k) { if (!want.some(function (w) { return w.key === k; })) { delete shown[k]; } });
     var n = people();
     $('peoplebadge').hidden = !(n && state.occasion !== null); $('peoplen').textContent = n;
@@ -448,7 +458,7 @@
       $('total').textContent = eur(p < 1 ? Math.round(v) : target); shownTotal = v;
       if (p < 1) { raf = requestAnimationFrame(tick); } else { shownTotal = target; }
     })(start);
-    $('totalnote').textContent = c.quoted.length && state.occasion !== null ? t('plus') : '';
+    $('totalnote').textContent = state.occasion === null ? '' : (upto(c) + (c.quoted.length ? ' ' + t('plus') : '')).trim();
     $('peoplenote').textContent = people() && state.occasion !== null ? people() + ' ' + t('people') : '';
     $('lines').innerHTML = state.occasion === null ? '' : c.lines.map(function (l) { return '<div><span>' + l[0] + '</span><b>' + l[1] + '</b></div>'; }).join('');
   }
@@ -484,7 +494,7 @@
     c.lines.forEach(function (l) { parts.push(l[0] + ' (' + l[1] + ')'); });
     if ($('date').value) { parts.push((pt ? 'dia ' : 'on ') + $('date').value); }
     if (where()) { parts.push((pt ? 'em ' : 'in ') + where()); }
-    $('summary').innerHTML = (pt ? 'A tua festa: ' : 'Your party: ') + parts.join(' · ') + '. <b>' + (pt ? 'Total ' : 'Total ') + eur(c.total) + '€</b>' + (c.quoted.length ? ' ' + t('plus') : '') + '.';
+    $('summary').innerHTML = (pt ? 'A tua festa: ' : 'Your party: ') + parts.join(' · ') + '. <b>' + (pt ? 'Total ' : 'Total ') + eur(c.total) + '€</b>' + upto(c) + (c.quoted.length ? ' ' + t('plus') : '') + '.';
   }
   function makeCode() { var a = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789', s = 'POC-'; for (var i = 0; i < 4; i++) { s += a[Math.floor(Math.random() * a.length)]; } return s; }
   var code = null;
@@ -495,7 +505,7 @@
     if (state.occasion) { out.push(t(state.occasion)); }
     out.push('');
     c.lines.forEach(function (l) { out.push(l[0] + ': ' + l[1]); });
-    out.push('Total: ' + eur(c.total) + '€' + (c.quoted.length ? ' ' + t('plus') : ''));
+    out.push('Total: ' + eur(c.total) + '€' + upto(c) + (c.quoted.length ? ' ' + t('plus') : ''));
     if ($('date').value) { out.push((pt ? 'Data: ' : 'Date: ') + $('date').value); }
     if (where()) { out.push((pt ? 'Onde: ' : 'Where: ') + where()); }
     if ((f.get('notes') || '').trim()) { out.push('', f.get('notes').trim()); }
@@ -523,6 +533,7 @@
       notes:    { n: 11, question: 'Notes', answer: (f.get('notes') || '').trim(), type: 'text' },
       total:    { n: 12, question: 'List total', answer: c.total, type: 'number', unit: 'EUR' },
       quoted:   { n: 13, question: 'Items to be quoted', answer: c.quoted, type: 'many' },
+      total_max: { n: 16, question: 'List total, top of ranges', answer: c.max, type: 'number', unit: 'EUR' },
       lang:     { n: 14, question: 'Language', answer: pt ? 'pt' : 'en', type: 'one' },
       builder:  { n: 15, question: 'Source page', answer: 'monta', type: 'one' }
     };
