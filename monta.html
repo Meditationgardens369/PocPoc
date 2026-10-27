@@ -476,7 +476,24 @@
     document.querySelectorAll('input[name=fx]').forEach(function (xi) { xi.checked = false; });
     render();
   }
-  document.querySelectorAll('.occ button').forEach(function (b) { b.addEventListener('click', function () { applyPreset(b.getAttribute('data-f')); go(1); }); });
+  /* A party already picked on the home page's menus arrives as ?m=&s=&d=&fx=&x=. Then the
+     occasion tiles only name the occasion and keep what the parent chose. */
+  var carried = false;
+  function applyCarried(q) {
+    var m = q.get('m'); if (!m || !MENUS[m]) { return false; }
+    state.menu = m; state.sizeIdx = Math.max(0, Math.min((MENUS[m].sizes.length || 1) - 1, parseInt(q.get('s'), 10) || 0));
+    var d = q.get('d'); state.deco = DECO.hasOwnProperty(d) ? d : 'simple';
+    state.fx = (q.get('fx') || '').split(',').filter(function (k) { return FOOD_EXTRAS.hasOwnProperty(k); });
+    state.x = (q.get('x') || '').split(',').filter(function (k) { return ANIM.hasOwnProperty(k) || RANGE.hasOwnProperty(k); });
+    var mi = document.querySelector('input[name=menu][value="' + state.menu + '"]'); if (mi) { mi.checked = true; }
+    var di = document.querySelector('input[name=deco][value="' + state.deco + '"]'); if (di) { di.checked = true; }
+    document.querySelectorAll('input[name=x]').forEach(function (xi) { xi.checked = state.x.indexOf(xi.value) !== -1; });
+    document.querySelectorAll('input[name=fx]').forEach(function (xi) { xi.checked = state.fx.indexOf(xi.value) !== -1; });
+    carried = true; return true;
+  }
+  document.querySelectorAll('.occ button').forEach(function (b) { b.addEventListener('click', function () {
+    if (carried) { state.occasion = b.getAttribute('data-f'); render(); go(1); } else { applyPreset(b.getAttribute('data-f')); go(1); }
+  }); });
 
   /* ---------- Sizes ---------- */
   function renderSizes() {
@@ -763,7 +780,9 @@
 
   /* ---------- Start: preset from the site, or the occasion screen ---------- */
   var f0 = null; try { f0 = new URLSearchParams(location.search).get('f'); } catch (e) {}
-  if (f0 && PRESET[f0]) { applyPreset(f0); go(1); } else { render(); go(0); }
+  var q0 = null; try { q0 = new URLSearchParams(location.search); } catch (e) {}
+  if (q0 && applyCarried(q0)) { render(); go(0); }
+  else if (f0 && PRESET[f0]) { applyPreset(f0); go(1); } else { render(); go(0); }
 })();
 </script>
 </body>
