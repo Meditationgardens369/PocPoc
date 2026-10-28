@@ -104,7 +104,6 @@
   .orb { position: absolute; border-radius: 50%; filter: blur(46px); opacity: .55; z-index: -1; pointer-events: none; transform: translate3d(var(--ox, 0), var(--oy, 0), 0); transition: transform .8s var(--ease); }
   .orb.o1 { width: 300px; height: 300px; right: -40px; top: -30px; background: #F7B6D2; }
   .orb.o2 { width: 240px; height: 240px; left: 0; bottom: -20px; background: #D7C2FF; }
-  .float.f1 { transform: translate3d(var(--px, 0), var(--py, 0), 0); }
   @media (max-width: 520px) { .back { width: 40%; left: -4%; } }
   .frame img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transform: scale(1.12); transition: opacity 1.4s ease; }
   .frame img.on { opacity: 1; animation: kb 7s linear forwards; }
@@ -113,23 +112,14 @@
   .dots { position: absolute; right: 18px; bottom: 18px; z-index: 2; display: flex; gap: 6px; }
   .dots i { width: 7px; height: 7px; border-radius: 50%; background: rgba(255,255,255,.55); transition: all .3s; }
   .dots i.on { width: 20px; border-radius: 4px; background: #fff; }
-  .float { position: absolute; background: rgba(255,255,255,.92); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-radius: 20px; box-shadow: var(--sh-l); padding: 14px 16px; z-index: 3; }
-  .float.f1 { left: 4%; bottom: 2%; display: flex; align-items: center; gap: 12px; max-width: 290px; padding: 10px 18px 10px 10px; border-radius: 999px; transition: transform .5s var(--ease); }
-  .float.f1 img { width: 54px; height: 54px; border-radius: 50%; object-fit: cover; flex: none; border: 3px solid #fff; box-shadow: var(--sh-s); }
-  .float.f1 b { display: block; font: 600 16px var(--head); }
-  .float.f1 span { display: block; font-size: 13px; color: var(--muted); line-height: 1.35; }
-  .float.f2 { right: -8px; top: 9%; text-align: center; animation: bob 7s ease-in-out -2s infinite; }
-  .float.f2 b { display: block; font: 600 30px/1 var(--head); color: var(--pink); }
-  .float.f2 span { font-size: 12px; font-weight: 800; color: var(--muted); letter-spacing: .04em; }
-  @keyframes bob { 50% { transform: translateY(-8px); } }
-  @media (max-width: 520px) { .float.f2 { right: 0; } .float.f1 { max-width: 250px; } }
 
   /* care: numbers, then how guests are looked after */
   .care { padding: 30px 0 90px; position: relative; isolation: isolate; }
   .care::before { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, var(--ivory), #FCE9F0 40%, var(--ivory)); }
   .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; padding: 34px 20px; margin-bottom: 70px; background: rgba(255,255,255,.7); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-radius: 30px; box-shadow: var(--sh-s); text-align: center; }
-  .stats b { display: block; font: 600 clamp(36px, 4.6vw, 58px)/1 var(--head); background: linear-gradient(135deg, var(--pink), var(--plum)); -webkit-background-clip: text; background-clip: text; color: transparent; font-variant-numeric: tabular-nums; }
-  .stats span { display: block; margin-top: 8px; font-weight: 800; font-size: 14px; color: var(--muted); }
+  .stats b { display: block; padding-bottom: .12em; font: 600 clamp(36px, 4.6vw, 58px)/1.05 var(--head); background: linear-gradient(135deg, var(--pink), var(--plum)); -webkit-background-clip: text; background-clip: text; color: transparent; font-variant-numeric: tabular-nums; }
+  .stats b.word { font-size: clamp(30px, 3.6vw, 46px); line-height: 1.32; }
+  .stats span { display: block; margin-top: 4px; font-weight: 800; font-size: 14px; color: var(--muted); }
   @media (max-width: 760px) { .stats { grid-template-columns: 1fr 1fr; gap: 26px 10px; margin-bottom: 50px; } }
   .care-head { text-align: center; max-width: 760px; margin: 0 auto 40px; }
   .care-head .sub { margin-left: auto; margin-right: auto; }
@@ -416,7 +406,6 @@
           <img src="photos/t-candyfloss.jpg" alt="A Marina a fazer algodão doce para uma menina">
           <span class="dots" id="dots"></span>
         </div>
-        <div class="float f1"><img src="photos/marina-fabio.jpg" alt=""><b><span class="pt">Marina e Fábio</span><span class="en">Marina and Fábio</span></b></div>
       </div>
     </div>
   </div>
@@ -428,7 +417,7 @@
       <div><b data-count="7">7</b><span><span class="pt">anos a fazer festas</span><span class="en">years of parties</span></span></div>
       <div><b data-count="150" data-plus>150+</b><span><span class="pt">festas e eventos</span><span class="en">parties and events</span></span></div>
       <div><b>20-60</b><span><span class="pt">convidados bem servidos</span><span class="en">guests, well looked after</span></span></div>
-      <div><b>Algarve</b><span><span class="pt">onde a festa for</span><span class="en">wherever the party is</span></span></div>
+      <div><b class="word">Algarve</b><span><span class="pt">onde a festa for</span><span class="en">wherever the party is</span></span></div>
     </div>
     <div class="care-head rv">
       <h2 class="h2"><span class="pt">Os teus convidados, <em>recebidos como família.</em></span><span class="en">Your guests, <em>welcomed like family.</em></span></h2>
@@ -882,7 +871,6 @@
       var r = stage.getBoundingClientRect(), x = (e.clientX - (r.left + r.width / 2)) / r.width, y = (e.clientY - (r.top + r.height / 2)) / r.height;
       stage.style.setProperty('--fx', (x * -10) + 'px'); stage.style.setProperty('--fy', (y * -10) + 'px');
       stage.style.setProperty('--bx', (x * 18) + 'px'); stage.style.setProperty('--by', (y * 14) + 'px');
-      stage.style.setProperty('--px', (x * 24) + 'px'); stage.style.setProperty('--py', (y * 18) + 'px');
       stage.style.setProperty('--ox', (x * 40) + 'px'); stage.style.setProperty('--oy', (y * 30) + 'px');
     });
   }
